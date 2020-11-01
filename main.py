@@ -16,6 +16,7 @@ from collections import Counter
 #Import paquetes
 from configurations.functions import *
 from models.places import *
+from models.sort import *
 
 app = FastAPI()
 #git clone https://github.com/AbrahamLugoRamirez/Violence_dataset
@@ -120,47 +121,6 @@ habitantes_departamento=[["AMAZONAS",
      45367,
      79134]]
 
-#Clase Sort
-class Sort:
-    
-  def sortValues(values):
-    values = np.array(values)
-    index = np.argsort(values).flatten()
-    values = values[index]
-    return values
-    
-  def sortValuesAndAdjustNames(self, names, values):
-    names, values = np.array(names), np.array(values)
-
-    index = np.argsort(values).flatten()
-    names, values = names[index], values[index]
-
-    return names, values
-
-#class Plot
-
-class Plot:
-    
-  def __init__(self, y, x, title="title"):
-    self.y_label, self.y_value = y
-    self.x_label, self.x_value = x
-    self.title = title
-
-  def histogram(self, figsize=(32, 40)):
-    plt.figure(figsize=figsize)
-    plt.barh(self.y_value, self.x_value)
-    plt.title(self.title)
-    plt.xlabel(self.x_label)
-    plt.ylabel(self.y_label)
-
-    # Setting values to each bar
-    for index, value in enumerate(self.x_value):
-      plt.text(y=index, x=value, s=value)
-
-    plt.show()
-
-
-#Class date
 
 
 
