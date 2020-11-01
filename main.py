@@ -538,6 +538,19 @@ datasets = datasets.dropna()
 #print(datasets)
 
 
+@app.get("/histogram/{departamento}")
+def histogram(departamento: str):
+    sort = Sort()
+    sex = Sex(datasets)
+    result = State(datasets, departamento).town("BARRANQUILLA").neighborhood("VILLA COUNTRY").byDayName()
+    sexo, cantidad = result
+    sexo, cantidad = sort.sortValuesAndAdjustNames(sexo, cantidad)
+    print(sexo)
+    print(cantidad)
+    #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
+    #plot.histogram(figsize=(32, 14))
+    return  {"Histogram": "Great"}
+
 
 
 @app.get("/")
