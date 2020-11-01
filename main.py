@@ -1,18 +1,14 @@
 from typing import Optional
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd 
 import numpy as np
 import glob 
-
 #matplotlib
 import matplotlib 
 import matplotlib.pyplot as plt
-
 #collections
 from collections import Counter
-
 #Import paquetes
 from configurations.functions import *
 from models.places import *
@@ -121,43 +117,57 @@ habitantes_departamento=[["AMAZONAS",
      45367,
      79134]]
 
-
-
-
-
-
 frames = []
-    #file1 = np.genfromtxt('path/to/myfile.csv',delimiter=',',skiprows=1)
-
-    #Create a list ('frames') with four nested lists, one per sensor. 
-    #Each nested list have all the samples (DF) for that sensor.
-    #%cd /Violence_dataset
 files = glob.glob('assets\*.csv')
-    #files = pd.read_csv('Violencia_intrafamiliar_2010.csv')
-    #files.sort()
 frames.append(addData(files))
 datasets = makeListOfDataFrames(frames)
 datasets = renameDataFrameColumnsName(datasets)
 datasets = joinDataFrames(datasets)
-    ## Delete all rows which has some NAN value
+## Delete all rows which has some NAN value
 datasets = datasets.dropna()
-#print(datasets)
 
-
-@app.get("/histogram/{departamento}")
-def histogram(departamento: str):
+@app.get("/chart/{departamento}")
+def chart(departamento: str):
     sort = Sort()
     sex = Sex(datasets)
     result = State(datasets, departamento).byDayName()
     #.town("BARRANQUILLA").neighborhood("VILLA COUNTRY").byDayName()
     sexo, cantidad = result
     sexo, cantidad = sort.sortValuesAndAdjustNames(sexo, cantidad)
-
     print(sexo)
     print(cantidad)
     #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
     #plot.histogram(figsize=(32, 14))
     return  result
+
+@app.get("/chart/{departamento}/{municipio}")
+def chart(departamento: str, municipio:str):
+    sort = Sort()
+    sex = Sex(datasets)
+    result = State(datasets, departamento).town(municipio).byDayName()
+    #.neighborhood("VILLA COUNTRY").byDayName()
+    sexo, cantidad = result
+    sexo, cantidad = sort.sortValuesAndAdjustNames(sexo, cantidad)
+    print(sexo)
+    print(cantidad)
+    #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
+    #plot.histogram(figsize=(32, 14))
+    return  result
+
+@app.get("/chart/{departamento}/{municipio}/{barrio}")
+def chart(departamento: str, municipio:str, barrio:str):
+    sort = Sort()
+    sex = Sex(datasets)
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byDayName()
+    sexo, cantidad = result
+    sexo, cantidad = sort.sortValuesAndAdjustNames(sexo, cantidad)
+    print(sexo)
+    print(cantidad)
+    #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
+    #plot.histogram(figsize=(32, 14))
+    return  result
+
+
 
 
 
