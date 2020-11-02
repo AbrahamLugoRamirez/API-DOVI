@@ -14,6 +14,7 @@ from configurations.functions import *
 from models.places import *
 from models.sort import *
 
+
 app = FastAPI()
 #git clone https://github.com/AbrahamLugoRamirez/Violence_dataset
 
@@ -126,49 +127,321 @@ datasets = joinDataFrames(datasets)
 ## Delete all rows which has some NAN value
 datasets = datasets.dropna()
 
-@app.get("/chart/{departamento}")
+@app.get("/chart_cases_bydaynameColombia")
+def chart():
+    result = Date(datasets).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    return result
+
+@app.get("/chart_cases_byMonthColombia")
+def chart():
+    result = Date(datasets).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    return result
+
+@app.get("/chart_cases_byWeaponColombia")
+def chart():
+    result = Weapon(datasets).getWeapons()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    return result
+
+@app.get("/chart_cases_bySexColombia")
+def chart():
+    result = Sex(datasets).getSexs()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    return result
+
+@app.get("/chart_cases_byStateColombia")
+def chart():
+    result = State(datasets).getStates()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    return result
+
+
+@app.get("/chart_cases_bydayname/{departamento}")
 def chart(departamento: str):
     sort = Sort()
-    sex = Sex(datasets)
+    #sex = Sex(datasets)
     result = State(datasets, departamento).byDayName()
     #.town("BARRANQUILLA").neighborhood("VILLA COUNTRY").byDayName()
-    sexo, cantidad = result
-    sexo, cantidad = sort.sortValuesAndAdjustNames(sexo, cantidad)
-    print(sexo)
+    dias, cantidad = result
+    dias, cantidad = sort.sortValuesAndAdjustNames(dias, cantidad)
+    print(dias)
     print(cantidad)
     #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
     #plot.histogram(figsize=(32, 14))
     return  result
 
-@app.get("/chart/{departamento}/{municipio}")
+@app.get("/chart_cases_bydayname/{departamento}/{municipio}")
 def chart(departamento: str, municipio:str):
     sort = Sort()
     sex = Sex(datasets)
     result = State(datasets, departamento).town(municipio).byDayName()
     #.neighborhood("VILLA COUNTRY").byDayName()
-    sexo, cantidad = result
-    sexo, cantidad = sort.sortValuesAndAdjustNames(sexo, cantidad)
-    print(sexo)
+    dias, cantidad = result
+    dias, cantidad = sort.sortValuesAndAdjustNames(dias, cantidad)
+    print(dias)
     print(cantidad)
     #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
     #plot.histogram(figsize=(32, 14))
     return  result
 
-@app.get("/chart/{departamento}/{municipio}/{barrio}")
+@app.get("/chart_cases_bydayname/{departamento}/{municipio}/{barrio}")
 def chart(departamento: str, municipio:str, barrio:str):
     sort = Sort()
     sex = Sex(datasets)
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).byDayName()
-    sexo, cantidad = result
-    sexo, cantidad = sort.sortValuesAndAdjustNames(sexo, cantidad)
-    print(sexo)
+    dias, cantidad = result
+    dias, cantidad = sort.sortValuesAndAdjustNames(dias, cantidad)
+    print(dias)
     print(cantidad)
     #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
     #plot.histogram(figsize=(32, 14))
     return  result
 
 
+@app.get("/chart_cases_byMonth/{departamento}")
+def chart(departamento: str):
+    sort = Sort()
+    #sex = Sex(datasets)
+    result = State(datasets, departamento).byMonth()
+    #.town("BARRANQUILLA").neighborhood("VILLA COUNTRY").byDayName()
+    dias, cantidad = result
+    dias, cantidad = sort.sortValuesAndAdjustNames(dias, cantidad)
+    print(dias)
+    print(cantidad)
+    #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
+    #plot.histogram(figsize=(32, 14))
+    return  result
 
+@app.get("/chart_cases_byMonth/{departamento}/{municipio}")
+def chart(departamento: str, municipio:str):
+    sort = Sort()
+    sex = Sex(datasets)
+    result = State(datasets, departamento).town(municipio).byMonth()
+    #.neighborhood("VILLA COUNTRY").byDayName()
+    dias, cantidad = result
+   # dias, cantidad = sort.sortValuesAndAdjustNames(dias, cantidad)
+    print(dias)
+    print(cantidad)
+    #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
+    #plot.histogram(figsize=(32, 14))
+    return  result
+
+@app.get("/chart_cases_byMonth/{departamento}/{municipio}/{barrio}")
+def chart(departamento: str, municipio:str, barrio:str):
+    sort = Sort()
+    sex = Sex(datasets)
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byMonth()
+    dias, cantidad = result
+   # dias, cantidad = sort.sortValuesAndAdjustNames(dias, cantidad)
+    print(dias)
+    print(cantidad)
+    #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
+    #plot.histogram(figsize=(32, 14))
+    return  result
+
+
+@app.get("/chart_cases_byWeapon/{departamento}")
+def chart(departamento:str):
+    result = State(datasets, departamento).getWeapons()
+    print(result)
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_cases_byWeapon/{departamento}/{municipio}")
+def chart(departamento:str, municipio:str):
+    result = State(datasets, departamento).town(municipio).getWeapons()
+    print(result)
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_cases_byWeapon/{departamento}/{municipio}/{barrio}")
+def chart(departamento:str, municipio:str, barrio:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapons()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyDayName_byWeapon/{departamento}/{arma}")
+def chart(departamento:str, arma:str):
+    result = State(datasets, departamento).getWeapon(arma, date=True).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyDayName_byWeapon/{departamento}/{municipio}/{arma}")
+def chart(departamento:str, municipio:str, arma:str):
+    result = State(datasets, departamento).town(municipio).getWeapon(arma, date=True).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyDayName_byWeapon/{departamento}/{municipio}/{barrio}/{arma}")
+def chart(departamento:str, municipio:str, barrio:str, arma:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapon(arma, date=True).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+
+@app.get("/chart_casesbyMonth_byWeapon/{departamento}/{arma}")
+def chart(departamento:str, arma:str):
+    result = State(datasets, departamento).getWeapon(arma, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyMonth_byWeapon/{departamento}/{municipio}/{arma}")
+def chart(departamento:str, municipio:str, arma:str):
+    result = State(datasets, departamento).town(municipio).getWeapon(arma, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyMonth_byWeapon/{departamento}/{municipio}/{barrio}/{arma}")
+def chart(departamento:str, municipio:str, barrio:str, arma:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapon(arma, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+
+
+#Sex
+
+
+@app.get("/chart_cases_bySex/{departamento}")
+def chart(departamento:str):
+    result = State(datasets, departamento).getSexs()
+    print(result)
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_cases_bySex/{departamento}/{municipio}")
+def chart(departamento:str, municipio:str):
+    result = State(datasets, departamento).town(municipio).getSexs()
+    print(result)
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_cases_bySex/{departamento}/{municipio}/{barrio}")
+def chart(departamento:str, municipio:str, barrio:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSexs()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyDayName_bySex/{departamento}/{sexo}")
+def chart(departamento:str, sexo:str):
+    result = State(datasets, departamento).getSex(sexo, date=True).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyDayName_bySex/{departamento}/{municipio}/{sexo}")
+def chart(departamento:str, municipio:str, sexo:str):
+    result = State(datasets, departamento).town(municipio).getSex(sexo, date=True).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyDayName_bySex/{departamento}/{municipio}/{barrio}/{sexo}")
+def chart(departamento:str, municipio:str, barrio:str, sexo:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo, date=True).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+
+@app.get("/chart_casesbyMonth_bySex/{departamento}/{sexo}")
+def chart(departamento:str, sexo:str):
+    result = State(datasets, departamento).getSex(sexo, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyMonth_bySex/{departamento}/{municipio}/{sexo}")
+def chart(departamento:str, municipio:str, sexo:str):
+    result = State(datasets, departamento).town(municipio).getSex(sexo, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyMonth_bySex/{departamento}/{municipio}/{barrio}/{sexo}")
+def chart(departamento:str, municipio:str, barrio:str, sexo:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
 
 
 @app.get("/")
