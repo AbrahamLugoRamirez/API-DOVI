@@ -344,6 +344,68 @@ def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     return result
 
 
+#Edad
+@app.get("/chart_casesbyDayName_byOld/{departamento}/{edad}")
+def chart(departamento:str, edad:str):
+    result = State(datasets, departamento).getOld(edad).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyDayName_byOld/{departamento}/{municipio}/{edad}")
+def chart(departamento:str, municipio:str, edad:str):
+    result = State(datasets, departamento).town(municipio).getOld(edad).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyDayName_byOld/{departamento}/{municipio}/{barrio}/{edad}")
+def chart(departamento:str, municipio:str, barrio:str, edad:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(edad).byDayName()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyMonth_byOld/{departamento}/{edad}")
+def chart(departamento:str, edad:str):
+    result = State(datasets, departamento).getOld(edad).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyMonth_byOld/{departamento}/{municipio}/{edad}")
+def chart(departamento:str, municipio:str, edad:str):
+    result = State(datasets, departamento).town(municipio).getOld(edad).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+@app.get("/chart_casesbyMonth_byOld/{departamento}/{municipio}/{barrio}/{edad}")
+def chart(departamento:str, municipio:str, barrio:str, edad:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(edad).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
+
 @app.get("/")
 def readDataset():
     print("----") 
