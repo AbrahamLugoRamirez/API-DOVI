@@ -27,6 +27,8 @@ datasets = joinDataFrames(datasets)
 ## Delete all rows which has some NAN value
 datasets = datasets.dropna()
 
+
+#Global Get-- Colombia
 @app.get("/chart_cases_bydaynameColombia")
 def chart():
     result = Date(datasets).byDayName()
@@ -57,6 +59,15 @@ def chart():
     test_sorting = Sort()
     state, quantity = result
     state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    return result
+
+@app.get("/chart_cases_bySexColombia_Porcentaje")
+def chart():
+    resultM = (Sex(datasets).getSex("MASCULINO", values=True)/346279)*100
+    resultF = (Sex(datasets).getSex("FEMENINO", values=True)/346279)*100
+    resultNo = ((346279 - (Sex(datasets).getSex("FEMENINO", values=True)+Sex(datasets).getSex("MASCULINO", values=True)))/346279)*100
+    sum = resultF + resultM + resultNo
+    result = [["MASCULINO", "FEMENINO", "NO REPORTADO"], [resultM, resultF, resultNo]]
     return result
 
 @app.get("/chart_cases_byStateColombia")
@@ -246,10 +257,7 @@ def chart(departamento:str, municipio:str, barrio:str, arma:str):
     return result
 
 
-
 #Sex
-
-
 @app.get("/chart_cases_bySex/{departamento}")
 def chart(departamento:str):
     result = State(datasets, departamento).getSexs()
@@ -408,9 +416,9 @@ def chart(departamento:str, municipio:str, barrio:str, edad:str):
 
 @app.get("/")
 def readDataset():
-    print("----") 
-    print(datasets)
-    return {"Hello": "World"}
+    #print(datasets)
+    var = "This app is running"
+    return var
 
 
 #print("This is out defff")
