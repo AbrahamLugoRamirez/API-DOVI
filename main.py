@@ -61,13 +61,12 @@ def chart():
     state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
-@app.get("/chart_cases_bySexColombia_Porcentaje")
+@app.get("/chart_cases_bySex_percentageColombia")
 def chart():
-    resultM = (Sex(datasets).getSex("MASCULINO", values=True)/346279)*100
-    resultF = (Sex(datasets).getSex("FEMENINO", values=True)/346279)*100
-    resultNo = ((346279 - (Sex(datasets).getSex("FEMENINO", values=True)+Sex(datasets).getSex("MASCULINO", values=True)))/346279)*100
-    sum = resultF + resultM + resultNo
-    result = [["MASCULINO", "FEMENINO", "NO REPORTADO"], [resultM, resultF, resultNo]]
+    total = Sex(datasets).getSex("MASCULINO", values=True) + Sex(datasets).getSex("FEMENINO", values=True)
+    resultM = (Sex(datasets).getSex("MASCULINO", values=True)/total)*100
+    resultF = (Sex(datasets).getSex("FEMENINO", values=True)/total)*100
+    result = [["FEMENINO", "MASCULINO"], [resultF, resultM]]
     return result
 
 @app.get("/chart_cases_byStateColombia")
@@ -412,6 +411,35 @@ def chart(departamento:str, municipio:str, barrio:str, edad:str):
     #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
     #testing_plot.histogram()
     return result
+
+@app.get("/chart_cases_bySex_percentage/{departamento}")
+def chart(departamento:str):
+    total = State(datasets, departamento).getSex("FEMENINO", values=True) + State(datasets, departamento).getSex("MASCULINO", values=True)
+    resultF = (State(datasets, departamento).getSex("FEMENINO", values=True)/total)*100
+    resultM = (State(datasets, departamento).getSex("MASCULINO", values=True)/total)*100
+    sum = resultF + resultM
+    result = [["FEMENINO", "MASCULINO"], [resultF, resultM]]
+    return result
+
+@app.get("/chart_cases_bySex_percentage/{departamento}/{municipio}")
+def chart(departamento:str, municipio:str):
+    total = State(datasets, departamento).town(municipio).getSex("FEMENINO", values=True) + State(datasets, departamento).town(municipio).getSex("MASCULINO", values=True)
+    resultF = (State(datasets, departamento).town(municipio).getSex("FEMENINO", values=True)/total)*100
+    resultM = (State(datasets, departamento).town(municipio).getSex("MASCULINO", values=True)/total)*100
+    sum = resultF + resultM
+    result = [["FEMENINO", "MASCULINO"], [resultF, resultM]]
+    return result
+
+@app.get("/chart_cases_bySex_percentage/{departamento}/{municipio}/{barrio}")
+def chart(departamento:str, municipio:str, barrio:str):
+    total = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex("FEMENINO", values=True) + State(datasets, departamento).town(municipio).neighborhood(barrio).getSex("MASCULINO", values=True)
+    resultF = (State(datasets, departamento).town(municipio).neighborhood(barrio).getSex("FEMENINO", values=True)/total)*100
+    resultM = (State(datasets, departamento).town(municipio).neighborhood(barrio).getSex("MASCULINO", values=True)/total)*100
+    sum = resultF + resultM
+    result = [["FEMENINO", "MASCULINO"], [resultF, resultM]]
+    return result
+
+
 
 
 @app.get("/")
