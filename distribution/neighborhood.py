@@ -71,6 +71,16 @@ def chart(departamento:str, municipio:str, barrio:str, arma:str):
     #testing_plot.histogram()
     return result
 
+@router.get("/chart_cases_bySex/{departamento}/{municipio}/{barrio}")
+def chart(departamento:str, municipio:str, barrio:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSexs()
+    test_sorting = Sort()
+    state, quantity = result
+    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
+    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
+    #testing_plot.histogram()
+    return result
+
 @router.get("/chart_casesbyDayName_bySex/{departamento}/{municipio}/{barrio}/{sexo}")
 def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo, date=True).byDayName()
