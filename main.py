@@ -77,6 +77,26 @@ def chart():
     state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
+@app.get("/chart_cases_rangeColombia")
+def chart():
+    result18 = 0
+    result45 = 0
+    result99 = 0
+    for i in range(100):
+        if(i<=18):
+            result18 += Old(datasets).getOld(i, values=True)
+        if(i>18 and i<=45):
+            result45 +=Old(datasets).getOld(i, values=True)
+        if(i>45):
+            result99 += Old(datasets).getOld(i, values=True)
+    sum = result18 + result45 + result99
+    result18 = (result18/sum)*100
+    result45 = (result45/sum)*100
+    result99 = (result99/sum)*100
+    sum3 = result18 + result45 + result99
+    result = [["0-18", "19-45", "45 Y MAS"], [result18, result45, result99]]
+    return result
+
 
 @app.get("/chart_cases_bydayname/{departamento}")
 def chart(departamento: str):
@@ -439,7 +459,67 @@ def chart(departamento:str, municipio:str, barrio:str):
     result = [["FEMENINO", "MASCULINO"], [resultF, resultM]]
     return result
 
+@app.get("/chart_cases_range/{departamento}")
+def chart(departamento:str):
+    #por departamento
+    result18 = 0
+    result45 = 0
+    result99 = 0
+#print(Old(datasets).getOld(1, values=True))
+    for i in range(100):
+        if(i<=18):
+            result18 += State(datasets, departamento).getOld(i, values=True)
+        if(i>18 and i<=45):
+            result45 += State(datasets, departamento).getOld(i, values=True)
+        if(i>45):
+            result99 += State(datasets, departamento).getOld(i, values=True)
+    sum = result18 + result45 + result99
+    result18 = (result18/sum)*100
+    result45 = (result45/sum)*100
+    result99 = (result99/sum)*100
+    sum3 = result18 + result45 + result99
+    result = [["0-18", "19-45", "45 Y MAS"], [result18, result45, result99]]
+    return result
 
+@app.get("/chart_cases_range/{departamento}/{municipio}")
+def chart(departamento:str, municipio:str):
+    result18 = 0
+    result45 = 0
+    result99 = 0
+    for i in range(100):
+        if(i<=18):
+            result18 += State(datasets, departamento).town(municipio).getOld(i, values=True)
+        if(i>18 and i<=45):
+            result45 += State(datasets, departamento).town(municipio).getOld(i, values=True)
+        if(i>45):
+            result99 += State(datasets, departamento).town(municipio).getOld(i, values=True)
+    sum = result18 + result45 + result99
+    result18 = (result18/sum)*100
+    result45 = (result45/sum)*100
+    result99 = (result99/sum)*100
+    sum3 = result18 + result45 + result99
+    result = [["0-18", "19-45", "45 Y MAS"], [result18, result45, result99]]
+    return result
+
+@app.get("/chart_cases_range/{departamento}/{municipio}/{barrio}")
+def chart(departamento:str, municipio:str, barrio:str):
+    result18 = 0
+    result45 = 0
+    result99 = 0
+    for i in range(100):
+        if(i<=18):
+            result18 += State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(i, values=True)
+        if(i>18 and i<=45):
+            result45 += State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(i, values=True)
+        if(i>45):
+            result99 += State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(i, values=True)
+    sum = result18 + result45 + result99
+    result18 = (result18/sum)*100
+    result45 = (result45/sum)*100
+    result99 = (result99/sum)*100
+    sum3 = result18 + result45 + result99
+    result = [["0-18", "19-45", "45 Y MAS"], [result18, result45, result99]]
+    return result
 
 
 @app.get("/")
