@@ -15,7 +15,8 @@ datasets = joinDataFrames(datasets)
 ## Delete all rows which has some NAN value
 datasets = datasets.dropna()
 
-@router.get("/chart_cases_bydayname/{departamento}/{municipio}/{barrio}")
+
+@router.get("/chart_cases_bydayname/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento: str, municipio:str, barrio:str):
     sort = Sort()
     sex = Sex(datasets)
@@ -28,7 +29,7 @@ def chart(departamento: str, municipio:str, barrio:str):
     #plot.histogram(figsize=(32, 14))
     return  result
 
-@router.get("/chart_cases_byMonth/{departamento}/{municipio}/{barrio}")
+@router.get("/chart_cases_byMonth/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento: str, municipio:str, barrio:str):
     sort = Sort()
     sex = Sex(datasets)
@@ -41,7 +42,7 @@ def chart(departamento: str, municipio:str, barrio:str):
     #plot.histogram(figsize=(32, 14))
     return  result
 
-@router.get("/chart_cases_byWeapon/{departamento}/{municipio}/{barrio}")
+@router.get("/chart_cases_byWeapon/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapons()
     test_sorting = Sort()
@@ -51,7 +52,7 @@ def chart(departamento:str, municipio:str, barrio:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyDayName_byWeapon/{departamento}/{municipio}/{barrio}/{arma}")
+@router.get("/chart_casesbyDayName_byWeapon/{departamento}/{municipio}/{barrio}/{arma}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, arma:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapon(arma, date=True).byDayName()
     test_sorting = Sort()
@@ -61,7 +62,7 @@ def chart(departamento:str, municipio:str, barrio:str, arma:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyMonth_byWeapon/{departamento}/{municipio}/{barrio}/{arma}")
+@router.get("/chart_casesbyMonth_byWeapon/{departamento}/{municipio}/{barrio}/{arma}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, arma:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapon(arma, date=True).byMonth()
     test_sorting = Sort()
@@ -71,7 +72,7 @@ def chart(departamento:str, municipio:str, barrio:str, arma:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_cases_bySex/{departamento}/{municipio}/{barrio}")
+@router.get("/chart_cases_bySex/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSexs()
     test_sorting = Sort()
@@ -81,7 +82,7 @@ def chart(departamento:str, municipio:str, barrio:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyDayName_bySex/{departamento}/{municipio}/{barrio}/{sexo}")
+@router.get("/chart_casesbyDayName_bySex/{departamento}/{municipio}/{barrio}/{sexo}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo, date=True).byDayName()
     test_sorting = Sort()
@@ -91,7 +92,7 @@ def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyMonth_bySex/{departamento}/{municipio}/{barrio}/{sexo}")
+@router.get("/chart_casesbyMonth_bySex/{departamento}/{municipio}/{barrio}/{sexo}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo, date=True).byMonth()
     test_sorting = Sort()
@@ -101,7 +102,7 @@ def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyDayName_byOld/{departamento}/{municipio}/{barrio}/{edad}")
+@router.get("/chart_casesbyDayName_byOld/{departamento}/{municipio}/{barrio}/{edad}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, edad:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(edad).byDayName()
     test_sorting = Sort()
@@ -111,7 +112,7 @@ def chart(departamento:str, municipio:str, barrio:str, edad:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyMonth_byOld/{departamento}/{municipio}/{barrio}/{edad}")
+@router.get("/chart_casesbyMonth_byOld/{departamento}/{municipio}/{barrio}/{edad}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, edad:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(edad).byMonth()
     test_sorting = Sort()
@@ -121,7 +122,7 @@ def chart(departamento:str, municipio:str, barrio:str, edad:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_cases_bySex_percentage/{departamento}/{municipio}/{barrio}")
+@router.get("/chart_cases_bySex_percentage/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str):
     total = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex("FEMENINO", values=True) + State(datasets, departamento).town(municipio).neighborhood(barrio).getSex("MASCULINO", values=True)
     resultF = (State(datasets, departamento).town(municipio).neighborhood(barrio).getSex("FEMENINO", values=True)/total)*100
@@ -130,7 +131,7 @@ def chart(departamento:str, municipio:str, barrio:str):
     result = [["FEMENINO", "MASCULINO"], [resultF, resultM]]
     return result
 
-@router.get("/chart_cases_range/{departamento}/{municipio}/{barrio}")
+@router.get("/chart_cases_range/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str):
     result18 = 0
     result45 = 0

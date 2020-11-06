@@ -16,7 +16,7 @@ datasets = joinDataFrames(datasets)
 datasets = datasets.dropna()
 
 
-@router.get("/chart_cases_bydayname")
+@router.get("/chart_cases_bydayname", tags=["Colombia"])
 def chart():
     result = Date(datasets).byDayName()
     test_sorting = Sort()
@@ -25,7 +25,7 @@ def chart():
     return result
 
 
-@router.get("/chart_cases_byMonth")
+@router.get("/chart_cases_byMonth", tags=["Colombia"])
 def chart():
     result = Date(datasets).byMonth()
     test_sorting = Sort()
@@ -33,7 +33,7 @@ def chart():
     state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
-@router.get("/chart_cases_byWeapon")
+@router.get("/chart_cases_byWeapon", tags=["Colombia"])
 def chart():
     result = Weapon(datasets).getWeapons()
     test_sorting = Sort()
@@ -41,7 +41,7 @@ def chart():
     state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
-@router.get("/chart_cases_bySex")
+@router.get("/chart_cases_bySex", tags=["Colombia"])
 def chart():
     result = Sex(datasets).getSexs()
     test_sorting = Sort()
@@ -49,7 +49,7 @@ def chart():
     state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
-@router.get("/chart_cases_bySex_percentage")
+@router.get("/chart_cases_bySex_percentage", tags=["Colombia"])
 def chart():
     total = Sex(datasets).getSex("MASCULINO", values=True) + Sex(datasets).getSex("FEMENINO", values=True)
     resultM = (Sex(datasets).getSex("MASCULINO", values=True)/total)*100
@@ -57,7 +57,7 @@ def chart():
     result = [["FEMENINO", "MASCULINO"], [resultF, resultM]]
     return result
 
-@router.get("/chart_cases_byState")
+@router.get("/chart_cases_byState", tags=["Colombia"])
 def chart():
     result = State(datasets).getStates()
     test_sorting = Sort()
@@ -65,7 +65,7 @@ def chart():
     state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
-@router.get("/chart_cases_range")
+@router.get("/chart_cases_range", tags=["Colombia"])
 def chart():
     result18 = 0
     result45 = 0
