@@ -41,10 +41,10 @@ def main():
 import psycopg2
 
 param_dic = {
-    "host"      : "localhost",
-    "database"  : "Violencia intrafamiliar",
-    "user"      : "postgres",
-    "password"  : "1002034780"
+    "host"      : "ec2-54-165-164-38.compute-1.amazonaws.com",
+    "database"  : "d42s210pja3o91",
+    "user"      : "egxaapodolchzz",
+    "password"  : "90f1044690a5e5421eb3d8610ad16c9c7c823201e4e0bf1db96e65dba088184f"
 }
 def connect(params_dic):
     """ Connect to the PostgreSQL database server """
@@ -92,3 +92,4 @@ datasetss = postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar
 ## Delete all rows which has some NAN value
 #datasets = datasets.dropna()
 print(Date(datasetss).byDayName())
+
