@@ -4,3 +4,4 @@ matplotlib
 fastapi
 psycopg2
 numpy
+conda
