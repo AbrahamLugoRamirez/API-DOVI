@@ -40,5 +40,3 @@ datasets = datasets.dropna()
 def main():
     var = "This app is running..."
     return var
-
-
