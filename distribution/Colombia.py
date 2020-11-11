@@ -6,19 +6,15 @@ from models.sort import *
 from models.dictionaries import *
 
 
-
-
-
-
 router = APIRouter()
 
 import psycopg2
 
 param_dic = {
-    "host"      : "ec2-54-165-164-38.compute-1.amazonaws.com",
-    "database"  : "d42s210pja3o91",
-    "user"      : "egxaapodolchzz",
-    "password"  : "90f1044690a5e5421eb3d8610ad16c9c7c823201e4e0bf1db96e65dba088184f"
+    "host"      : "dbapidovi.postgres.database.azure.com",
+    "database"  : "violencia_intrafamiliar",
+    "user"      : "superuserDOVI@dbapidovi",
+    "password"  : "Admindovi123"
 }
 def connect(params_dic):
     """ Connect to the PostgreSQL database server """
