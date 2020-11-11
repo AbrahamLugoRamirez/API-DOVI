@@ -2,3 +2,4 @@ uvicorn
 pandas
 matplotlib
 fastapi
+psycopg2
