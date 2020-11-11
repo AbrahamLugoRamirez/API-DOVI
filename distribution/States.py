@@ -5,7 +5,6 @@ from models.places import *
 from models.sort import *
 from models.dictionaries import *
 from distribution.Colombia import datasets
-
 router = APIRouter()
 
 

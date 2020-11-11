@@ -15,16 +15,17 @@ from configurations.functions import *
 from models.places import *
 from models.sort import *
 from models.dictionaries import *
-from distribution import Colombia, States, Town
 from distribution import Neighborhood
+from distribution import Colombia, States, Town
 from distribution.Colombia import datasets
 
 
 app = FastAPI()
 app.include_router(Colombia.router)
 app.include_router(States.router)
-app.include_router(Town.router)
 app.include_router(Neighborhood.router)
+app.include_router(Town.router)
+
 
 
 
