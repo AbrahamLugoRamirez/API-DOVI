@@ -5,6 +5,11 @@ from models.places import *
 from models.sort import *
 from models.dictionaries import *
 
+
+
+
+
+
 router = APIRouter()
 
 import psycopg2
@@ -48,10 +53,10 @@ def postgresql_to_dataframe(conn, select_query, column_names):
     df = pd.DataFrame(tupples, columns=column_names)
     return df
 
+# Connect to the database
 conn = connect(param_dic)
 column_names = ["FECHA", "DEPARTAMENTO", "MUNICIPIO", "DIA", "HORA", "BARRIO", "ZONA", "CLASE SITIO", "ARMA EMPLEADA", "EDAD", "SEXO", "ESTADO CIVIL", "CLASE EMPLEADO", "ESCOLARIDAD"]
 # Execute the "SELECT *" query
-
 # Connect to the database
 frames = []
 frames.append(postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar_general", column_names))
@@ -60,6 +65,7 @@ datasets = joinDataFrames(datasets)
 ## Delete all rows which has some NAN value
 datasets = datasets.dropna()
 conn.close()
+
 
 @router.get("/chart_cases_bydayname", tags=["Colombia"])
 def chart():
