@@ -15,7 +15,8 @@ from configurations.functions import *
 from models.places import *
 from models.sort import *
 from models.dictionaries import *
-from distribution import Colombia, States, Town, Neighborhood
+from distribution import Colombia, States, Town
+from distribution import Neighborhood
 from distribution.Colombia import datasets
 
 
