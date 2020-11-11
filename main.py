@@ -26,8 +26,7 @@ app.include_router(Town.router)
 app.include_router(Neighborhood.router)
 
 
-#frames = []
-#files = glob.glob('assets\*.csv')
+
 
 
 
@@ -83,13 +82,16 @@ def postgresql_to_dataframe(conn, select_query, column_names):
 conn = connect(param_dic)
 column_names = ["FECHA", "DEPARTAMENTO", "MUNICIPIO", "DIA", "HORA", "BARRIO", "ZONA", "CLASE SITIO", "ARMA EMPLEADA", "EDAD", "SEXO", "ESTADO CIVIL", "CLASE EMPLEADO", "ESCOLARIDAD"]
 # Execute the "SELECT *" query
-datasetss = postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar_2010", column_names)
+datasets = postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar_2010", column_names)
 
+
+#frames = []
+#files = glob.glob('assets\*.csv')
 #frames.append(addData(files))
 #datasets = makeListOfDataFrames(datasets)
 #datasets = renameDataFrameColumnsName(datasets)
 #datasets = joinDataFrames(datasets)
 ## Delete all rows which has some NAN value
 #datasets = datasets.dropna()
-print(Date(datasetss).byDayName())
+print(Date(datasets).byDayName())
 
