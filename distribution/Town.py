@@ -9,7 +9,7 @@ from distribution.Colombia import datasets
 router = APIRouter()
 
 
-@router.get("/chart_cases_bydayname/{departamento}/{municipio}", tags=["Town"])
+@router.get("/bydayname/{departamento}/{municipio}", tags=["Town"])
 def chart(departamento: str, municipio:str):
     sort = Sort()
     sex = Sex(datasets)
@@ -23,7 +23,7 @@ def chart(departamento: str, municipio:str):
     #plot.histogram(figsize=(32, 14))
     return  result
 
-@router.get("/chart_cases_byMonth/{departamento}/{municipio}", tags=["Town"])
+@router.get("/byMonth/{departamento}/{municipio}", tags=["Town"])
 def chart(departamento: str, municipio:str):
     sort = Sort()
     sex = Sex(datasets)
@@ -37,7 +37,7 @@ def chart(departamento: str, municipio:str):
     #plot.histogram(figsize=(32, 14))
     return  result
 
-@router.get("/chart_cases_byWeapon/{departamento}/{municipio}", tags=["Town"])
+@router.get("/byWeapon/{departamento}/{municipio}", tags=["Town"])
 def chart(departamento:str, municipio:str):
     result = State(datasets, departamento).town(municipio).getWeapons()
     print(result)
@@ -48,7 +48,7 @@ def chart(departamento:str, municipio:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyDayName_byWeapon/{departamento}/{municipio}/{arma}", tags=["Town"])
+@router.get("/byWeapon_byDayName/{departamento}/{municipio}/{arma}", tags=["Town"])
 def chart(departamento:str, municipio:str, arma:str):
     result = State(datasets, departamento).town(municipio).getWeapon(arma, date=True).byDayName()
     test_sorting = Sort()
@@ -58,7 +58,7 @@ def chart(departamento:str, municipio:str, arma:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyMonth_byWeapon/{departamento}/{municipio}/{arma}", tags=["Town"])
+@router.get("/byWeapon_byMonth/{departamento}/{municipio}/{arma}", tags=["Town"])
 def chart(departamento:str, municipio:str, arma:str):
     result = State(datasets, departamento).town(municipio).getWeapon(arma, date=True).byMonth()
     test_sorting = Sort()
@@ -68,7 +68,7 @@ def chart(departamento:str, municipio:str, arma:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_cases_bySex/{departamento}/{municipio}", tags=["Town"])
+@router.get("/bySex/{departamento}/{municipio}", tags=["Town"])
 def chart(departamento:str, municipio:str):
     result = State(datasets, departamento).town(municipio).getSexs()
     print(result)
@@ -79,7 +79,7 @@ def chart(departamento:str, municipio:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyDayName_bySex/{departamento}/{municipio}/{sexo}", tags=["Town"])
+@router.get("/bySex_byDayName/{departamento}/{municipio}/{sexo}", tags=["Town"])
 def chart(departamento:str, municipio:str, sexo:str):
     result = State(datasets, departamento).town(municipio).getSex(sexo, date=True).byDayName()
     test_sorting = Sort()
@@ -89,7 +89,7 @@ def chart(departamento:str, municipio:str, sexo:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyMonth_bySex/{departamento}/{municipio}/{sexo}", tags=["Town"])
+@router.get("/bySex_byMonth/{departamento}/{municipio}/{sexo}", tags=["Town"])
 def chart(departamento:str, municipio:str, sexo:str):
     result = State(datasets, departamento).town(municipio).getSex(sexo, date=True).byMonth()
     test_sorting = Sort()
@@ -99,7 +99,7 @@ def chart(departamento:str, municipio:str, sexo:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyDayName_byOld/{departamento}/{municipio}/{edad}", tags=["Town"])
+@router.get("/byOld_byDayName/{departamento}/{municipio}/{edad}", tags=["Town"])
 def chart(departamento:str, municipio:str, edad:str):
     result = State(datasets, departamento).town(municipio).getOld(edad).byDayName()
     test_sorting = Sort()
@@ -109,7 +109,7 @@ def chart(departamento:str, municipio:str, edad:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyMonth_byOld/{departamento}/{municipio}/{edad}", tags=["Town"])
+@router.get("/byOld_byMonth/{departamento}/{municipio}/{edad}", tags=["Town"])
 def chart(departamento:str, municipio:str, edad:str):
     result = State(datasets, departamento).town(municipio).getOld(edad).byMonth()
     test_sorting = Sort()
@@ -119,7 +119,7 @@ def chart(departamento:str, municipio:str, edad:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_cases_bySex_percentage/{departamento}/{municipio}", tags=["Town"])
+@router.get("/bySex_percentage/{departamento}/{municipio}", tags=["Town"])
 def chart(departamento:str, municipio:str):
     total = State(datasets, departamento).town(municipio).getSex("FEMENINO", values=True) + State(datasets, departamento).town(municipio).getSex("MASCULINO", values=True)
     resultF = (State(datasets, departamento).town(municipio).getSex("FEMENINO", values=True)/total)*100
@@ -128,7 +128,7 @@ def chart(departamento:str, municipio:str):
     result = [["FEMENINO", "MASCULINO"], [resultF, resultM]]
     return result
 
-@router.get("/chart_cases_range/{departamento}/{municipio}", tags=["Town"])
+@router.get("/range/{departamento}/{municipio}", tags=["Town"])
 def chart(departamento:str, municipio:str):
     result18 = 0
     result45 = 0

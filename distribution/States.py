@@ -8,7 +8,7 @@ from distribution.Colombia import datasets
 router = APIRouter()
 
 
-@router.get("/chart_cases_bydayname/{departamento}", tags=["State"])
+@router.get("/bydayname/{departamento}", tags=["State"])
 def chart(departamento: str):
     sort = Sort()
     #sex = Sex(datasets)
@@ -22,7 +22,7 @@ def chart(departamento: str):
     #plot.histogram(figsize=(32, 14))
     return  result
 
-@router.get("/chart_cases_byMonth/{departamento}", tags=["State"])
+@router.get("/byMonth/{departamento}", tags=["State"])
 def chart(departamento: str):
     sort = Sort()
     #sex = Sex(datasets)
@@ -36,7 +36,7 @@ def chart(departamento: str):
     #plot.histogram(figsize=(32, 14))
     return  result
 
-@router.get("/chart_cases_byWeapon/{departamento}", tags=["State"])
+@router.get("/byWeapon/{departamento}", tags=["State"])
 def chart(departamento:str):
     result = State(datasets, departamento).getWeapons()
     print(result)
@@ -47,7 +47,7 @@ def chart(departamento:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyDayName_byWeapon/{departamento}/{arma}", tags=["State"])
+@router.get("/byWeapon_byDayName/{departamento}/{arma}", tags=["State"])
 def chart(departamento:str, arma:str):
     result = State(datasets, departamento).getWeapon(arma, date=True).byDayName()
     test_sorting = Sort()
@@ -57,7 +57,7 @@ def chart(departamento:str, arma:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyMonth_byWeapon/{departamento}/{arma}", tags=["State"])
+@router.get("/byWeapon_byMonth/{departamento}/{arma}", tags=["State"])
 def chart(departamento:str, arma:str):
     result = State(datasets, departamento).getWeapon(arma, date=True).byMonth()
     test_sorting = Sort()
@@ -68,7 +68,7 @@ def chart(departamento:str, arma:str):
     return result
 
 #Sex
-@router.get("/chart_cases_bySex/{departamento}", tags=["State"])
+@router.get("/bySex/{departamento}", tags=["State"])
 def chart(departamento:str):
     result = State(datasets, departamento).getSexs()
     print(result)
@@ -79,7 +79,7 @@ def chart(departamento:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyDayName_bySex/{departamento}/{sexo}", tags=["State"])
+@router.get("/bySex_byDayName/{departamento}/{sexo}", tags=["State"])
 def chart(departamento:str, sexo:str):
     result = State(datasets, departamento).getSex(sexo, date=True).byDayName()
     test_sorting = Sort()
@@ -89,7 +89,7 @@ def chart(departamento:str, sexo:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyMonth_bySex/{departamento}/{sexo}", tags=["State"])
+@router.get("/bySex_byMonth/{departamento}/{sexo}", tags=["State"])
 def chart(departamento:str, sexo:str):
     result = State(datasets, departamento).getSex(sexo, date=True).byMonth()
     test_sorting = Sort()
@@ -99,7 +99,7 @@ def chart(departamento:str, sexo:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyDayName_byOld/{departamento}/{edad}", tags=["State"])
+@router.get("/byOld_byDayName/{departamento}/{edad}", tags=["State"])
 def chart(departamento:str, edad:str):
     result = State(datasets, departamento).getOld(edad).byDayName()
     test_sorting = Sort()
@@ -109,7 +109,7 @@ def chart(departamento:str, edad:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_casesbyMonth_byOld/{departamento}/{edad}", tags=["State"])
+@router.get("/byOld_byMonth/{departamento}/{edad}", tags=["State"])
 def chart(departamento:str, edad:str):
     result = State(datasets, departamento).getOld(edad).byMonth()
     test_sorting = Sort()
@@ -119,7 +119,7 @@ def chart(departamento:str, edad:str):
     #testing_plot.histogram()
     return result
 
-@router.get("/chart_cases_bySex_percentage/{departamento}", tags=["State"])
+@router.get("/bySex_percentage/{departamento}", tags=["State"])
 def chart(departamento:str):
     total = State(datasets, departamento).getSex("FEMENINO", values=True) + State(datasets, departamento).getSex("MASCULINO", values=True)
     resultF = (State(datasets, departamento).getSex("FEMENINO", values=True)/total)*100
@@ -128,7 +128,7 @@ def chart(departamento:str):
     result = [["FEMENINO", "MASCULINO"], [resultF, resultM]]
     return result
 
-@router.get("/chart_cases_range/{departamento}", tags=["State"])
+@router.get("/range/{departamento}", tags=["State"])
 def chart(departamento:str):
     #por departamento
     result18 = 0
