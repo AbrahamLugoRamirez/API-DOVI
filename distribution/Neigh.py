@@ -10,108 +10,52 @@ router = APIRouter()
 
 @router.get("/bydayname/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento: str, municipio:str, barrio:str):
-    sort = Sort()
-    sex = Sex(datasets)
-    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byDayName()
-    dias, cantidad = result
-    dias, cantidad = sort.sortValuesAndAdjustNames(dias, cantidad)
-    print(dias)
-    print(cantidad)
-    #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
-    #plot.histogram(figsize=(32, 14))
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byDayName()    
     return  result
 
 @router.get("/byMonth/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento: str, municipio:str, barrio:str):
-    sort = Sort()
-    sex = Sex(datasets)
-    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byMonth()
-    dias, cantidad = result
-   # dias, cantidad = sort.sortValuesAndAdjustNames(dias, cantidad)
-    print(dias)
-    print(cantidad)
-    #plot = Plot(("sexo", sexo), ("cantidad", cantidad), title="Dias complicados en el barrio Villa Country, Barranquilla - Atlantico, para el genero femenino")
-    #plot.histogram(figsize=(32, 14))
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byMonth()   
     return  result
 
 @router.get("/byWeapon/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapons()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
-    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
-    #testing_plot.histogram()
     return result
 
 @router.get("/byWeapon_byDayName/{departamento}/{municipio}/{barrio}/{arma}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, arma:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapon(arma, date=True).byDayName()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
-    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
-    #testing_plot.histogram()
     return result
 
 @router.get("/byWeapon_byMonth/{departamento}/{municipio}/{barrio}/{arma}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, arma:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapon(arma, date=True).byMonth()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
-    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
-    #testing_plot.histogram()
     return result
 
 @router.get("/bySex/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSexs()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
-    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
-    #testing_plot.histogram()
     return result
 
 @router.get("/bySex_byDayName/{departamento}/{municipio}/{barrio}/{sexo}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo, date=True).byDayName()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
-    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
-    #testing_plot.histogram()
     return result
 
 @router.get("/bySex_byMonth/{departamento}/{municipio}/{barrio}/{sexo}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo, date=True).byMonth()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
-    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
-    #testing_plot.histogram()
     return result
 
 @router.get("/byOld_byDayName/{departamento}/{municipio}/{barrio}/{edad}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, edad:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(edad).byDayName()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
-    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
-    #testing_plot.histogram()
     return result
 
 @router.get("/byOld_byMonth/{departamento}/{municipio}/{barrio}/{edad}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, edad:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(edad).byMonth()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
-    #testing_plot = Plot(("Weapon", state), ("quantity", quantity), title="states")
-    #testing_plot.histogram()
     return result
 
 @router.get("/bySex_percentage/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])

@@ -26,8 +26,6 @@ app.include_router(Colombia.router)
 app.include_router(States.router)
 app.include_router(Neigh.router)
 app.include_router(Town.router)
-
-
 @app.get("/")
 def main():
     var = "This DOVI-API is running..."

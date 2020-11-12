@@ -65,34 +65,22 @@ conn.close()
 @router.get("/bydayname", tags=["Colombia"])
 def chart():
     result = Date(datasets).byDayName()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
 
 @router.get("/byMonth", tags=["Colombia"])
 def chart():
     result = Date(datasets).byMonth()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
 @router.get("/byWeapon", tags=["Colombia"])
 def chart():
     result = Weapon(datasets).getWeapons()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
 @router.get("/bySex", tags=["Colombia"])
 def chart():
     result = Sex(datasets).getSexs()
-    test_sorting = Sort()
-    state, quantity = result
-    state, quantity = test_sorting.sortValuesAndAdjustNames(state, quantity)
     return result
 
 @router.get("/bySex_percentage", tags=["Colombia"])
@@ -236,6 +224,6 @@ def habitants_cases(departamento:str, municipio:str, barrio:str,  dia_semana:str
               result = State(datasets, departamento).getDay(dia_semana)
             else:
               result = State(datasets, departamento).getStatess(departamento)
-  print("Cantidad de casos que cumplen los requisitos indicados: ",result)
+  #print("Cantidad de casos que cumplen los requisitos indicados: ",result)
   return result
 
