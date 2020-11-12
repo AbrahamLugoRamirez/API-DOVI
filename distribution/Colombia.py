@@ -55,6 +55,7 @@ column_names = ["FECHA", "DEPARTAMENTO", "MUNICIPIO", "DIA", "HORA", "BARRIO", "
 # Connect to the database
 frames = []
 frames.append(postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar_2019", column_names))
+frames.append(postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar_2018", column_names))
 datasets = renameDataFrameColumnsName(frames)
 datasets = joinDataFrames(datasets)
 ## Delete all rows which has some NAN value
