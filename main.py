@@ -29,10 +29,6 @@ app.include_router(Town.router)
 
 
 
-
-
-
-
 @app.get("/")
 def main():
     var = "This app is running..."
