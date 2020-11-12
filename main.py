@@ -1,20 +1,4 @@
-import uvicorn
-from typing import Optional
 from fastapi import Depends, FastAPI, Header, HTTPException
-from pydantic import BaseModel
-import pandas as pd 
-import numpy as np
-import glob 
-#matplotlib
-import matplotlib 
-import matplotlib.pyplot as plt
-#collections
-from collections import Counter
-#Import paquetes
-from configurations.functions import *
-from models.places import *
-from models.sort import *
-from models.dictionaries import *
 from distribution import *
 from distribution import Neigh
 from distribution import Colombia, States, Town
