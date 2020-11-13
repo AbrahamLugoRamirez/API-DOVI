@@ -98,3 +98,64 @@ habitantes_departamento=[["AMAZONAS",
      4804489,
      45367,
      79134]]
+
+
+sexo = {"FEMENINO": 0,
+        "MASCULINO": 1,
+        "NO REPORTA": 2,
+        "-":3
+        }
+
+escolaridad = {"ANALFABETA":0,
+               "PRIMARIA":1,
+               "SECUNDARIA":2,
+               "SUPERIOR":3,
+               "TECNICO":4,
+               "TECNOLOGO":5,
+               "NO REPORTADO":6,
+               "-":7    
+              } 
+
+estado_civil = {"CASADO":0,
+                "DIVORCIADO":1,
+                "SEPARADO":2,
+                "SOLTERO":3,
+                "UNION LIBRE":4,
+                "VIUDO":5,
+                "NO REPORTA":6,
+                "NO REPORTADO":7,
+                "-":8
+                }
+clase_empleado = {"AFRODESCENDIENTE":0,
+                  "AGRICULTOR":1,
+                  "AMA DE CASA":2,
+                  "ARTISTA":3,
+                  "CANDIDATOS":4,
+                  "COMERCIANTE":5,
+                  "DELINCUENCIA":6,
+                  "DEPORTISTA":7,
+                  "DESEMPLEADO":8,
+                  "EDUCADOR":9,
+                  "EMPLEADO ARMADA/MARINA":10,
+                  "EMPLEADO CTI":11,
+                  "EMPLEADO EJERCITO":12,
+                  "EMPLEADO INPEC":13,
+                  "EMPLEADO PARTICULAR":14,
+                  "EMPLEADO POLICIAL":15,
+                  "EMPLEADO PUBLICO":16,
+                  "EMPLEADO SALUD":17,
+                  "ESTUDIANTE":18,
+                  "ETNIA INDIGENA":19,
+                  "GANADERO":20,
+                  "GRUPOS ILEGALES":21,
+                  "INDEPENDIENTE":22,
+                  "LIDER CIVICO":23,
+                  "MIEMBRO ONG":24,
+                  "PENSIONADO":25,
+                  "RAMA JUDICIAL":26,
+                  "RELIGIOSO":27,
+                  "SECTOR FINANCIERO":28,
+                  "SECTOR IND":29,
+                  "NO REPORTA":30,
+                  "-":31
+                  }
