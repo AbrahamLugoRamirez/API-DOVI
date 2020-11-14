@@ -21,7 +21,8 @@ app.include_router(Town.router)
 app.include_router(predict.router)
 @app.get("/")
 def main():
-    var = "This DOVI-API is running..."
+    #var = "This DOVI-API is running..."
+    var = len(datasets)
     return var
 
 
