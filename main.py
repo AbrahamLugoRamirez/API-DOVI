@@ -1,36 +1,11 @@
-import uvicorn
-from typing import Optional
 from fastapi import Depends, FastAPI, Header, HTTPException
-from pydantic import BaseModel
-import pandas as pd 
-import numpy as np
-import glob 
-#matplotlib
-import matplotlib 
-import matplotlib.pyplot as plt
-#collections
-from collections import Counter
-#Import paquetes
-from configurations.functions import *
-from models.places import *
-from models.sort import *
-from models.dictionaries import *
 from distribution import *
 from distribution import Neigh
-from distribution import Colombia, States, Town
+from distribution import Colombia, States, Town, predict
 from distribution.Colombia import datasets
 from fastapi.middleware.cors import CORSMiddleware
 
-origins = [                                                 
-    "http://192.168.1.56:3000/",
-    "http://localhost:3000",                                        
-    "http://localhost.tiangolo.com",                                 
-    "https://localhost.tiangolo.com",                 
-    "http://localhost",
-]                               
-
 app = FastAPI()
-
 app.add_middleware(                                
     CORSMiddleware,                                       
     allow_origins=["*"],
@@ -42,11 +17,11 @@ app.include_router(Colombia.router)
 app.include_router(States.router)
 app.include_router(Neigh.router)
 app.include_router(Town.router)
-
-
+app.include_router(predict.router)
 @app.get("/")
 def main():
-    var = "This DOVI-API is running..."
+    #var = "This DOVI-API is running..."
+    var = len(datasets)
     return var
 
 

@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  backend:
+    container_name: dovi-backend
+    build: .
+    restart: always
+    working_dir: /src
+    ports:
+      - 5000:5000
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000", "--debug", "--reload-dir", "."]
