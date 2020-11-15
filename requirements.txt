@@ -4,5 +4,4 @@ matplotlib
 numpy
 fastapi
 psycopg2
-anaconda
 sklearn
