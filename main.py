@@ -19,9 +19,25 @@ from distribution import *
 from distribution import Neigh
 from distribution import Colombia, States, Town
 from distribution.Colombia import datasets
+from fastapi.middleware.cors import CORSMiddleware
 
+origins = [                                                 
+    "http://192.168.1.56:3000/",
+    "http://localhost:3000",                                        
+    "http://localhost.tiangolo.com",                                 
+    "https://localhost.tiangolo.com",                 
+    "http://localhost",
+]                               
 
 app = FastAPI()
+
+app.add_middleware(                                
+    CORSMiddleware,                                       
+    allow_origins=["*"],
+    allow_credentials=True,                             
+    allow_methods=["*"],                               
+    allow_headers=["*"]          
+)
 app.include_router(Colombia.router)
 app.include_router(States.router)
 app.include_router(Neigh.router)
