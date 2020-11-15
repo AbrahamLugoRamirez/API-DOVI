@@ -111,7 +111,10 @@ def chart():
             result45 +=Old(datasets).getOld(i, values=True)
         if(i>45):
             result99 += Old(datasets).getOld(i, values=True)
+    
     sum = result18 + result45 + result99
+    if(sum<=0):
+        sum = 1
     result18 = (result18/sum)*100
     result45 = (result45/sum)*100
     result99 = (result99/sum)*100
