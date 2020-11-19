@@ -5,6 +5,7 @@ from models.places import *
 from models.sort import *
 from models.dictionaries import *
 from distribution.Colombia import datasets
+from distribution.Colombia *
 from sklearn.naive_bayes import CategoricalNB
 
 router = APIRouter()
