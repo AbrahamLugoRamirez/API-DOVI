@@ -99,3 +99,80 @@ def chart(departamento:str):
 def chart(departamento:str):
     result = State(datasets, departamento).town().getTowns()
     return result[0]
+
+
+@router.get("/bySex_byWeapon/{departamento}/{sexo}", tags=["State"])
+def chart(departamento:str, sexo:str):
+    result = Weapon(State(datasets, departamento).getSex(sexo)).getWeapons()
+    return result
+
+@router.get("/bySex_byScholarship/{departamento}/{sexo}", tags=["State"])
+def chart(departamento:str, sexo:str):
+    result = Scholarship(State(datasets, departamento).getSex(sexo)).getScholarships()
+    return result
+
+@router.get("/bySex_byCivil/{departamento}/{sexo}", tags=["State"])
+def chart(departamento:str, sexo:str):
+    result = Civil(State(datasets, departamento).getSex(sexo)).getCivils()
+    return result
+
+@router.get("/bySex_byEmployee/{departamento}/{sexo}", tags=["State"])
+def chart(departamento:str, sexo:str):
+    result = Employee(State(datasets, departamento).getSex(sexo)).getEmployees()
+    return result
+
+@router.get("/bySex_byAge/{departamento}/{sexo}", tags=["State"])
+def chart(departamento:str, sexo:str):
+    result= Old(State(datasets, departamento).getSex(sexo)).getOlds()
+    return result
+
+@router.get("/byScholarship_byDayName/{departamento}/{escolaridad}", tags=["State"])
+def chart(departamento:str, escolaridad:str):
+    result = State(datasets, departamento).getScholarship(escolaridad,date=True).byDayName()
+    return result
+
+@router.get("/byScholarship_byMonth/{departamento}/{escolaridad}", tags=["State"])
+def chart(departamento:str, escolaridad:str):
+    result = State(datasets, departamento).getScholarship(escolaridad,date=True).byMonth()
+    return result
+
+@router.get("/byScholarship_byWeapon/{departamento}/{escolaridad}", tags=["State"])
+def chart(departamento:str, escolaridad:str):
+    result = State(datasets, departamento).getScholarship(escolaridad, weapon=True).getWeapons()
+    return result
+
+@router.get("/byCivil_byDayName/{departamento}/{civil}", tags=["State"])
+def chart(departamento:str, civil:str):
+    result = State(datasets, departamento).getCivil(civil,date=True).byDayName()
+    return result
+
+@router.get("/byCivil_byMonth/{departamento}/{civil}", tags=["State"])
+def chart(departamento:str, civil:str):
+    result = State(datasets, departamento).getCivil(civil,date=True).byMonth()
+    return result
+
+@router.get("/byCivil_byWeapon/{departamento}/{civil}", tags=["State"])
+def chart(departamento:str, civil:str):
+    result = State(datasets, departamento).getCivil(civil, weapon=True).getWeapons()
+    return result
+
+@router.get("/byWeapon_bySex/{departamento}/{arma}", tags=["State"])
+def chart(departamento:str, arma:str):
+    result = State(datasets, departamento).getWeapon(arma, sex=True).getSexs()
+    return result
+
+@router.get("/byEmployee_byDayName/{departamento}/{empleado}", tags=["State"])
+def chart(departamento:str, empleado:str):
+    result = State(datasets, departamento).getEmployee(empleado, date=True).byDayName()
+    return result
+
+@router.get("/byEmployee_byMonth/{departamento}/{empleado}", tags=["State"])
+def chart(departamento:str, empleado:str):
+    result = State(datasets, departamento).getEmployee(empleado, date=True).byMonth()
+    return result
+
+@router.get("/byEmployee_byWeapon/{departamento}/{empleado}", tags=["State"])
+def chart(departamento:str, empleado:str):
+    result = State(datasets, departamento).getEmployee(empleado,  weapon=True).getWeapons()
+    return result
+

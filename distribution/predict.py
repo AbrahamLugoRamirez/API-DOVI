@@ -120,7 +120,7 @@ def habitants_cases(departamento:str, municipio:str, barrio:str,  dia_semana:str
   return result
 
 
-@router.get("/predic/{edad}/{sexoo}/{estado_c}/{clase_e}/{escolarid}")
+@router.get("/predic/{edad}/{sexoo}/{estado_c}/{clase_e}/{escolarid}", tags=["Predict"])
 def clasificar(edad:int, sexoo:str, estado_c:str, clase_e:str, escolarid:str):
 
   agess = np.asarray(datasets.loc[:,"EDAD"].to_numpy(copy=True))
