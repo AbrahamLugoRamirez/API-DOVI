@@ -1,5 +1,6 @@
 from collections import Counter
 
+
 class Date:
     
   def __init__(self, dataset):
@@ -44,11 +45,9 @@ class Date:
     amount = list(uniq_dates.values())
 
     return dates, amount
-
-
-
-#Clas Old
-
+  
+  
+  
 class Old(Date):
    
   def __init__(self, dataset):
@@ -76,9 +75,8 @@ class Old(Date):
     amount = list(uniq_dates.values())
 
     return dates, amount   
+  
 
-
-#class SexXx
 
 class Sex(Old, Date):
    
@@ -89,29 +87,40 @@ class Sex(Old, Date):
 
   def getSex(self, sex, values=False, old=False, date=False):
     result = self.dataset.loc[self.dataset['SEXO'] == sex]
+    print("que está pasando: ", result)
     if values:
       return len(result)
     else:
       if old: return Old(result)
       elif date: return Date(result)
-      else: None
+      else: return result
 
-  def getSexs(self):
+  def getSexTotal(self):
+    print("Hi")
+    resultF = self.dataset.loc[self.dataset['SEXO'] == "FEMENINO"]
+    resultM = self.dataset.loc[self.dataset['SEXO'] == "MASCULINO"]
+    result = resultF + resultM
+    
+
+  def getSexs(self):  
     result = self.dataset["SEXO"]
     return self.__uniq_values(result)
+
 
   def __uniq_values(self, dataset):
     #unique dates
     uniq_dates = Counter(dataset)
+
 
     #Name of dates
     dates = list(uniq_dates.keys())
     #get amount of occurrencies per date
     amount = list(uniq_dates.values())
 
-    return dates, amount   
+    return dates, amount  
 
-#Class Weapon
+
+
 
 class Weapon(Sex, Old, Date):
 
@@ -129,7 +138,7 @@ class Weapon(Sex, Old, Date):
       if sex: return Sex(result)
       elif date: return Date(result)
       elif old: return Old(result)
-      else: None
+      else: return result
 
   def getWeapons(self):
     result = self.dataset["ARMA EMPLEADA"]
@@ -148,7 +157,7 @@ class Weapon(Sex, Old, Date):
 
 
 
-#Clase Place
+
 
 class Place(Weapon, Sex, Old, Date):
 
@@ -168,7 +177,7 @@ class Place(Weapon, Sex, Old, Date):
       elif weapon: return Weapon(result)
       elif sex: return Sex(result)
       elif old: return Old(result)
-      else: None
+      else: return result
 
   # Casos de SITIOS DE VIOLENCIA en general
   def getPlaces(self):
@@ -187,9 +196,129 @@ class Place(Weapon, Sex, Old, Date):
     return names, amount
 
 
-#Class Neighborhood
 
-class Neighborhood(Place, Weapon, Sex, Date):
+class Employee(Weapon, Sex, Old, Date):
+
+  def __init__(self, dataset):
+    self.dataset = dataset.copy()
+    Weapon.__init__(self, self.dataset.copy())
+    Sex.__init__(self, self.dataset.copy())
+    Old.__init__(self, self.dataset.copy())
+    Date.__init__(self, self.dataset.copy())
+
+  def getEmployee(self, employee , values=False, sex=False, date=False, weapon=False, old=False):
+    result = self.dataset.loc[self.dataset['CLASE EMPLEADO'] == employee]
+    if values:
+      return len(result)
+    else:
+      if date: return Date(result)
+      elif weapon: return Weapon(result)
+      elif sex: return Sex(result)
+      elif old: return Old(result)
+      else: return result
+
+  def getEmployees(self):
+    result = self.dataset['CLASE EMPLEADO']
+    return self.__uniq_values(result)
+  
+
+  def __uniq_values(self, dataset):
+    #unique dates
+    uniq_dates = Counter(dataset)
+
+
+    #Name of dates
+    dates = list(uniq_dates.keys())
+    #get amount of occurrencies per date
+    amount = list(uniq_dates.values())
+
+    return dates, amount 
+  
+  
+  
+class Scholarship(Employee ,Weapon, Sex, Old, Date):
+
+  def __init__(self, dataset):
+    self.dataset = dataset.copy()
+    Weapon.__init__(self, self.dataset.copy())
+    Sex.__init__(self, self.dataset.copy())
+    Old.__init__(self, self.dataset.copy())
+    Date.__init__(self, self.dataset.copy())
+    Employee.__init__(self, self.dataset.copy())
+
+  def getScholarship(self, scholarship , values=False, sex=False, date=False,employee=False, weapon=False, old=False):
+    result = self.dataset.loc[self.dataset['ESCOLARIDAD'] == scholarship]
+    if values:
+      return len(result)
+    else:
+      if date: return Date(result)
+      elif weapon: return Weapon(result)
+      elif sex: return Sex(result)
+      elif employee: return Employee(result)
+      elif old: return Old(result)
+      else: return result
+
+  def getScholarships(self):
+    result = self.dataset['ESCOLARIDAD']
+    return self.__uniq_values(result)
+  
+
+  def __uniq_values(self, dataset):
+    #unique dates
+    uniq_dates = Counter(dataset)
+
+
+    #Name of dates
+    dates = list(uniq_dates.keys())
+    #get amount of occurrencies per date
+    amount = list(uniq_dates.values())
+
+    return dates, amount   
+  
+  
+class Civil(Scholarship,Employee ,Weapon, Sex, Old, Date):
+
+  def __init__(self, dataset):
+    self.dataset = dataset.copy()
+    Weapon.__init__(self, self.dataset.copy())
+    Sex.__init__(self, self.dataset.copy())
+    Old.__init__(self, self.dataset.copy())
+    Date.__init__(self, self.dataset.copy())
+    Employee.__init__(self, self.dataset.copy())
+    Scholarship.__init__(self, self.dataset.copy())
+
+  def getCivil(self, civil , values=False,scholarship=False, sex=False, date=False,employee=False, weapon=False, old=False):
+    result = self.dataset.loc[self.dataset['ESTADO CIVIL'] == civil]
+    if values:
+      return len(result)
+    else:
+      if date: return Date(result)
+      elif weapon: return Weapon(result)
+      elif sex: return Sex(result)
+      elif scholarship: return Scholarship(result)
+      elif employee: return Employee(result)
+      elif old: return Old(result)
+      else: None
+
+  def getCivils(self):
+    result = self.dataset['ESTADO CIVIL']
+    return self.__uniq_values(result)
+  
+
+  def __uniq_values(self, dataset):
+    #unique dates
+    uniq_dates = Counter(dataset)
+
+
+    #Name of dates
+    dates = list(uniq_dates.keys())
+    #get amount of occurrencies per date
+    amount = list(uniq_dates.values())
+
+    return dates, amount  
+  
+  
+class Neighborhood(Civil, Scholarship, Employee, Place, Weapon, Sex, Date):
     
   def __init__(self, dataset, neighborhood=".$"):
     self.dataset = dataset
@@ -199,6 +328,9 @@ class Neighborhood(Place, Weapon, Sex, Date):
     Place.__init__(self, self.neighborhood_dataset.copy())
     Weapon.__init__(self, self.neighborhood_dataset.copy())
     Sex.__init__(self, self.neighborhood_dataset.copy())
+    Scholarship.__init__(self, self.neighborhood_dataset.copy())
+    Employee.__init__(self, self.neighborhood_dataset.copy())
+    Civil.__init__(self, self.neighborhood_dataset.copy())
 
   def __getNeighborhood(self, neighborhood):
     return self.dataset.loc[self.dataset['BARRIO'].str.contains(neighborhood)]
@@ -220,11 +352,10 @@ class Neighborhood(Place, Weapon, Sex, Date):
     amount = list(uniq_dates.values())
 
     return names, amount
+  
 
 
-#Class Town
-
-class Town(Place, Weapon, Sex,Date):
+class Town(Civil, Scholarship,Employee, Place, Weapon, Sex,Date):
     
   def __init__(self, dataset, town=".$"):
     self.town = town
@@ -244,6 +375,9 @@ class Town(Place, Weapon, Sex,Date):
     Place.__init__(self, self.town_dataset.copy())
     Weapon.__init__(self, self.town_dataset.copy())
     Sex.__init__(self, self.town_dataset.copy())
+    Scholarship.__init__(self, self.town_dataset.copy())
+    Employee.__init__(self, self.town_dataset.copy())
+    Civil.__init__(self, self.town_dataset.copy())
 
   def neighborhood(self, neighborhood=".$"):
     return Neighborhood(self.town_dataset.copy(), neighborhood)
@@ -268,10 +402,10 @@ class Town(Place, Weapon, Sex,Date):
     amount = list(uniq_dates.values())
 
     return names, amount
-
-
-#Clase State
-class State(Place, Weapon, Sex, Date):
+  
+  
+  
+class State(Civil,Scholarship,Employee, Place, Weapon, Sex, Date):
     
   def __init__(self, dataset, state='.$'):
     self.state = state
@@ -290,6 +424,10 @@ class State(Place, Weapon, Sex, Date):
     Place.__init__(self, self.state_dataset.copy())
     Weapon.__init__(self, self.state_dataset.copy())
     Sex.__init__(self, self.state_dataset.copy())
+    Scholarship.__init__(self, self.state_dataset.copy())
+    Employee.__init__(self, self.state_dataset.copy())
+    Civil.__init__(self, self.state_dataset.copy())
+    
 
   def __getState(self, state):
     result = self.dataset.loc[self.dataset['DEPARTAMENTO'].str.contains(state)]
@@ -319,4 +457,3 @@ class State(Place, Weapon, Sex, Date):
     amount = list(uniq_dates.values())
 
     return names, amount
-
