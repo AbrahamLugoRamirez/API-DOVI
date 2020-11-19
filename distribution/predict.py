@@ -162,7 +162,7 @@ def clasificar(edad:int, sexoo:str, estado_c:str, clase_e:str, escolarid:str):
     matrix_y = sexoss
     matrix_y=matrix_y.astype('int')
     clf.fit(x, matrix_y)
-    valor = int(clf.predict(np.array([[estado_civil[estado_c], escolaridad[escolarid], sexo[sexoo], clase_empleado[clase_e]]])))
+    valor = int(clf.predict(np.array([[estado_civil[estado_c], escolaridad[escolarid], edad, clase_empleado[clase_e]]])))
     valor = list(sexo.keys())[list(sexo.values()).index(valor)]
     return valor
   if(estado_c == "-"):

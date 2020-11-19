@@ -176,3 +176,40 @@ def chart(departamento:str, empleado:str):
     result = State(datasets, departamento).getEmployee(empleado,  weapon=True).getWeapons()
     return result
 
+
+
+
+@router.get("/byAgeRange_byDayName/{departamento}/{inicio}/{final}", tags=["State"])
+def chart(departamento:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).byDayName()
+    return result
+
+@router.get("/byAgeRange_byMonth/{departamento}/{inicio}/{final}", tags=["State"])
+def chart(departamento:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).byMonth()
+    return result
+
+@router.get("/byAgeRange_byWeapon/{departamento}/{inicio}/{final}", tags=["State"])
+def chart(departamento:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).getWeapons()
+    return result
+
+@router.get("/byAgeRange_bySex/{departamento}/{inicio}/{final}", tags=["State"])
+def chart(departamento:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).getSexs()
+    return result
+
+@router.get("/byAgeRange_byScholarty/{departamento}/{inicio}/{final}", tags=["State"])
+def chart(departamento:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).getScholarships()
+    return result
+
+@router.get("/byAgeRange_byCivil/{departamento}/{inicio}/{final}", tags=["State"])
+def chart(departamento:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).getCivils()
+    return result
+
+@router.get("/byAgeRange_byEmployee/{departamento}/{inicio}/{final}", tags=["State"])
+def chart(departamento:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).getEmployees()
+    return result

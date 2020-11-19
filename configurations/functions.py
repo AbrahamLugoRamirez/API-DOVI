@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import glob 
 
+
 def addData(files: str) -> list:
         allCsv = []
         for file in files:
@@ -34,3 +35,6 @@ def makeListOfDataFrames(list_of_dataframes):
 
 def joinDataFrames(dataframes):
     return pd.concat(dataframes)
+
+
+

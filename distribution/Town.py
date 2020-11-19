@@ -171,3 +171,42 @@ def chart(departamento:str, municipio:str, empleado:str):
 def chart(departamento:str, municipio:str, empleado:str):
     result = State(datasets, departamento).town(municipio).getEmployee(empleado, weapon=True).getWeapons()
     return result
+
+
+
+@router.get("/byAgeRange_byDayName/{departamento}/{municipio}/{inicio}/{final}", tags=["Town"])
+def chart(departamento:str, municipio:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).byDayName()
+    return result
+
+@router.get("/byAgeRange_byMonth/{departamento}/{municipio}/{inicio}/{final}", tags=["Town"])
+def chart(departamento:str, municipio:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).byMonth()
+    return result
+
+@router.get("/byAgeRange_byWeapon/{departamento}/{municipio}/{inicio}/{final}", tags=["Town"])
+def chart(departamento:str, municipio:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).getWeapons()
+    return result
+
+@router.get("/byAgeRange_bysex/{departamento}/{municipio}/{inicio}/{final}", tags=["Town"])
+def chart(departamento:str, municipio:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).getSexs()
+    return result
+
+
+@router.get("/byAgeRange_byScholarty/{departamento}/{municipio}/{inicio}/{final}", tags=["Town"])
+def chart(departamento:str, municipio:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).getScholarships()
+    return result
+
+
+@router.get("/byAgeRange_byCivil/{departamento}/{municipio}/{inicio}/{final}", tags=["Town"])
+def chart(departamento:str, municipio:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).getCivils()
+    return result
+
+@router.get("/byAgeRange_byEmployee/{departamento}/{municipio}/{inicio}/{final}", tags=["Town"])
+def chart(departamento:str, municipio:str, inicio:int, final:int):
+    result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).getEmployees()
+    return result

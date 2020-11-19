@@ -1,6 +1,7 @@
 from collections import Counter
-
-
+from configurations.functions import *
+from distribution.Colombia import datasets  
+  
 class Date:
     
   def __init__(self, dataset):
@@ -457,3 +458,34 @@ class State(Civil,Scholarship,Employee, Place, Weapon, Sex, Date):
     amount = list(uniq_dates.values())
 
     return names, amount
+  
+def oldCalculateRange(i,j, lista):
+  if (i<=j):
+    lista.append(OldRange(datasets).getOld(i,j, iteration=True))
+    #print(lista)
+    return oldCalculateRange(i+1,j,lista)
+  else:
+    return lista
+  
+class OldRange(Date):
+   
+  def __init__(self, dataset):
+    self.dataset = dataset.copy()
+    Date.__init__(self, self.dataset.copy())
+
+  def getOld(self, olds,olde,salida=False,iteration=False, values=False):
+    result = self.dataset.loc[self.dataset['EDAD'] == olds]
+    lista= []
+    if values:
+      return len(result)
+    elif iteration: return result
+    elif salida: return joinDataFrames(oldCalculateRange(olds, olde, lista))
+    else:
+      return Date(result)
+    
+
+  
+  
+  
+
+
