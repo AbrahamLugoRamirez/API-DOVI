@@ -4,7 +4,7 @@ from configurations.functions import *
 from models.places import *
 from models.sort import *
 from models.dictionaries import *
-
+#from models.places import *
 
 router = APIRouter()
 import psycopg2
@@ -54,12 +54,35 @@ column_names = ["FECHA", "DEPARTAMENTO", "MUNICIPIO", "DIA", "HORA", "BARRIO", "
 # Execute the "SELECT *" query
 # Connect to the database
 frames = []
-frames.append(postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar_general", column_names))
+frames.append(postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar_2010", column_names))
 datasets = renameDataFrameColumnsName(frames)
 datasets = joinDataFrames(datasets)
 ## Delete all rows which has some NAN value
 datasets = datasets.dropna()
 conn.close()
+
+
+def oldCalculateRange(i,j, lista):
+  if (i<=j):
+    lista.append(OldRange(datasets).getOld(i,j, iteration=True))
+    #print(lista)
+    return oldCalculateRange(i+1,j,lista)
+  else:
+    return lista
+
+class OldRange(Date):   
+  def __init__(self, dataset):
+    self.dataset = dataset.copy()
+    Date.__init__(self, self.dataset.copy())
+  def getOld(self, olds,olde,salida=False,iteration=False, values=False):
+    result = self.dataset.loc[self.dataset['EDAD'] == olds]
+    lista= []
+    if values:
+      return len(result)
+    elif iteration: return result
+    elif salida: return joinDataFrames(oldCalculateRange(olds, olde, lista))
+    else:
+      return Date(result)
 
 
 @router.get("/byDayName", tags=["Colombia"])
@@ -198,6 +221,45 @@ def chart(empleado:str):
 def chart(empleado:str):
     result = Employee(datasets).getEmployee(empleado, weapon=True).getWeapons()
     return result
+
+@router.get("/byAgeRange_byDayName/{inicio}/{final}", tags=["State"])
+def chart(inicio:int, final:int):
+    result = Date(OldRange(datasets).getOld(inicio,final,salida=True)).byDayName()
+    return result
+
+@router.get("/byAgeRange_byMonth/{inicio}/{final}", tags=["State"])
+def chart(inicio:int, final:int):
+    result = Date(OldRange(datasets).getOld(inicio,final,salida=True)).byMonth()
+    return result
+
+@router.get("/byAgeRange_byWeapon/{inicio}/{final}", tags=["State"])
+def chart(inicio:int, final:int):
+    result = Weapon(OldRange(datasets).getOld(inicio,final,salida=True)).getWeapons()
+    return result
+
+@router.get("/byAgeRange_bySex/{inicio}/{final}", tags=["State"])
+def chart(inicio:int, final:int):
+    result = Sex(OldRange(datasets).getOld(inicio,final,salida=True)).getSexs()
+    return result
+
+
+@router.get("/byAgeRange_byScholarty/{inicio}/{final}", tags=["State"])
+def chart(inicio:int, final:int):
+    result = Scholarship(OldRange(datasets).getOld(inicio,final,salida=True)).getScholarships()
+    return result
+
+@router.get("/byAgeRange_byCivil/{inicio}/{final}", tags=["State"])
+def chart(inicio:int, final:int):
+    result = Civil(OldRange(datasets).getOld(inicio,final,salida=True)).getCivils()
+    return result
+
+@router.get("/byAgeRange_byEmployee/{inicio}/{final}", tags=["State"])
+def chart(inicio:int, final:int):
+    result = Employee(OldRange(datasets).getOld(inicio,final,salida=True)).getEmployees()
+    return result
+
+
+
 
 
 
