@@ -8,14 +8,22 @@ from distribution.Colombia import *
 router = APIRouter()
 
 
-@router.get("/bydayname/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
+@router.get("/byDayName/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento: str, municipio:str, barrio:str):
-    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byDayName()    
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()  
     return  result
 
 @router.get("/byMonth/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
 def chart(departamento: str, municipio:str, barrio:str):
-    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byMonth()   
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()  
     return  result
 
 @router.get("/byWeapon/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
@@ -26,11 +34,19 @@ def chart(departamento:str, municipio:str, barrio:str):
 @router.get("/byWeapon_byDayName/{departamento}/{municipio}/{barrio}/{arma}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, arma:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapon(arma, date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()    
     return result
 
 @router.get("/byWeapon_byMonth/{departamento}/{municipio}/{barrio}/{arma}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, arma:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getWeapon(arma, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/bySex/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
@@ -41,21 +57,37 @@ def chart(departamento:str, municipio:str, barrio:str):
 @router.get("/bySex_byDayName/{departamento}/{municipio}/{barrio}/{sexo}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo, date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/bySex_byMonth/{departamento}/{municipio}/{barrio}/{sexo}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, sexo:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byOld_byDayName/{departamento}/{municipio}/{barrio}/{edad}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, edad:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(edad).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byOld_byMonth/{departamento}/{municipio}/{barrio}/{edad}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, edad:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(edad).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/bySex_percentage/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
@@ -116,11 +148,19 @@ def chart(departamento:str,  municipio:str, barrio:str, sexo:str):
 @router.get("/byScholarship_byDayName/{departamento}/{municipio}/{barrio}/{escolaridad}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, escolaridad:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getScholarship(escolaridad,date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byScholarship_byMonth/{departamento}/{municipio}/{barrio}/{escolaridad}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, escolaridad:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getScholarship(escolaridad,date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byScholarship_byWeapon/{departamento}/{municipio}/{barrio}/{escolaridad}", tags=["Neighborhood"])
@@ -131,11 +171,19 @@ def chart(departamento:str, municipio:str, barrio:str, escolaridad:str):
 @router.get("/byCivil_byDayName/{departamento}/{municipio}/{barrio}/{civil}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, civil:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getCivil(civil,date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
-@router.get("/byCivil_byDayName/{departamento}/{municipio}/{barrio}/{civil}", tags=["Neighborhood"])
+@router.get("/byCivil_byMonth/{departamento}/{municipio}/{barrio}/{civil}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, civil:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getCivil(civil,date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byCivil_byWeapon/{departamento}/{municipio}/{barrio}/{civil}", tags=["Neighborhood"])
@@ -151,11 +199,19 @@ def chart(departamento:str, municipio:str, barrio:str, arma:str):
 @router.get("/byEmployee_byDayName/{departamento}/{municipio}/{barrio}/{empleado}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, empleado:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getEmployee(empleado, date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byEmployee_byMonth/{departamento}/{municipio}/{barrio}/{empleado}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, empleado:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getEmployee(empleado, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byEmployee_byWeapon/{departamento}/{municipio}/{barrio}/{empleado}", tags=["Neighborhood"])
@@ -166,11 +222,19 @@ def chart(departamento:str, municipio:str, barrio:str, empleado:str):
 @router.get("/byAgeRange_byDayName/{departamento}/{municipio}/{barrio}/{inicio}/{final}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, inicio:int, final:int):
     result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).neighborhood(barrio).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byAgeRange_byMonth/{departamento}/{municipio}/{barrio}/{inicio}/{final}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, inicio:int, final:int):
     result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).neighborhood(barrio).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byAgeRange_byWeapon/{departamento}/{municipio}/{barrio}/{inicio}/{final}", tags=["Neighborhood"])
@@ -198,5 +262,6 @@ def chart(departamento:str, municipio:str, barrio:str, inicio:int, final:int):
 def chart(departamento:str, municipio:str, barrio:str, inicio:int, final:int):
     result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).neighborhood(barrio).getEmployees()
     return result
+
 
 

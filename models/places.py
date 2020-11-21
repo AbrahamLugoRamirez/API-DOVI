@@ -13,7 +13,7 @@ class Date:
     return self.__uniq_values(result)
 
   def byMonth(self):
-    result = [i[:2] for i in self.dataset["FECHA"]]
+    result = [i.split("/")[1] for i in self.dataset["FECHA"]]
     return self.__uniq_values(result)
 
   def byWeek(self):

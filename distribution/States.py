@@ -8,14 +8,22 @@ from distribution.Colombia import *
 router = APIRouter()
 
 
-@router.get("/bydayname/{departamento}", tags=["State"])
+@router.get("/byDayName/{departamento}", tags=["State"])
 def chart(departamento: str):
     result = State(datasets, departamento).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return  result
 
 @router.get("/byMonth/{departamento}", tags=["State"])
 def chart(departamento: str):
-    result = State(datasets, departamento).byMonth()    
+    result = State(datasets, departamento).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return  result
 
 @router.get("/byWeapon/{departamento}", tags=["State"])
@@ -26,11 +34,19 @@ def chart(departamento:str):
 @router.get("/byWeapon_byDayName/{departamento}/{arma}", tags=["State"])
 def chart(departamento:str, arma:str):
     result = State(datasets, departamento).getWeapon(arma, date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byWeapon_byMonth/{departamento}/{arma}", tags=["State"])
 def chart(departamento:str, arma:str):
     result = State(datasets, departamento).getWeapon(arma, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 #Sex
@@ -42,21 +58,37 @@ def chart(departamento:str):
 @router.get("/bySex_byDayName/{departamento}/{sexo}", tags=["State"])
 def chart(departamento:str, sexo:str):
     result = State(datasets, departamento).getSex(sexo, date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/bySex_byMonth/{departamento}/{sexo}", tags=["State"])
 def chart(departamento:str, sexo:str):
     result = State(datasets, departamento).getSex(sexo, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byOld_byDayName/{departamento}/{edad}", tags=["State"])
 def chart(departamento:str, edad:str):
     result = State(datasets, departamento).getOld(edad).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byOld_byMonth/{departamento}/{edad}", tags=["State"])
 def chart(departamento:str, edad:str):
     result = State(datasets, departamento).getOld(edad).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/bySex_percentage/{departamento}", tags=["State"])
@@ -129,11 +161,19 @@ def chart(departamento:str, sexo:str):
 @router.get("/byScholarship_byDayName/{departamento}/{escolaridad}", tags=["State"])
 def chart(departamento:str, escolaridad:str):
     result = State(datasets, departamento).getScholarship(escolaridad,date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byScholarship_byMonth/{departamento}/{escolaridad}", tags=["State"])
 def chart(departamento:str, escolaridad:str):
     result = State(datasets, departamento).getScholarship(escolaridad,date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byScholarship_byWeapon/{departamento}/{escolaridad}", tags=["State"])
@@ -144,11 +184,19 @@ def chart(departamento:str, escolaridad:str):
 @router.get("/byCivil_byDayName/{departamento}/{civil}", tags=["State"])
 def chart(departamento:str, civil:str):
     result = State(datasets, departamento).getCivil(civil,date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byCivil_byMonth/{departamento}/{civil}", tags=["State"])
 def chart(departamento:str, civil:str):
     result = State(datasets, departamento).getCivil(civil,date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byCivil_byWeapon/{departamento}/{civil}", tags=["State"])
@@ -164,11 +212,19 @@ def chart(departamento:str, arma:str):
 @router.get("/byEmployee_byDayName/{departamento}/{empleado}", tags=["State"])
 def chart(departamento:str, empleado:str):
     result = State(datasets, departamento).getEmployee(empleado, date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byEmployee_byMonth/{departamento}/{empleado}", tags=["State"])
 def chart(departamento:str, empleado:str):
     result = State(datasets, departamento).getEmployee(empleado, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byEmployee_byWeapon/{departamento}/{empleado}", tags=["State"])
@@ -176,17 +232,22 @@ def chart(departamento:str, empleado:str):
     result = State(datasets, departamento).getEmployee(empleado,  weapon=True).getWeapons()
     return result
 
-
-
-
 @router.get("/byAgeRange_byDayName/{departamento}/{inicio}/{final}", tags=["State"])
 def chart(departamento:str, inicio:int, final:int):
     result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byAgeRange_byMonth/{departamento}/{inicio}/{final}", tags=["State"])
 def chart(departamento:str, inicio:int, final:int):
     result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byAgeRange_byWeapon/{departamento}/{inicio}/{final}", tags=["State"])

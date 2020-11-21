@@ -88,12 +88,20 @@ class OldRange(Date):
 @router.get("/byDayName", tags=["Colombia"])
 def chart():
     result = Date(datasets).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()    
     return result
 
 
 @router.get("/byMonth", tags=["Colombia"])
 def chart():
     result = Date(datasets).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byWeapon", tags=["Colombia"])
@@ -175,11 +183,19 @@ def chart(sexo:str):
 @router.get("/byScholarship_byDayName/{escolaridad}", tags=["Colombia"])
 def chart(escolaridad:str):
     result = Scholarship(datasets).getScholarship(escolaridad,date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byScholarship_byMonth/{escolaridad}", tags=["Colombia"])
 def chart(escolaridad:str):
     result = Scholarship(datasets).getScholarship(escolaridad,date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byScholarship_byWeapon/{escolaridad}", tags=["Colombia"])
@@ -190,11 +206,19 @@ def chart(escolaridad:str):
 @router.get("/byCivil_byDayName/{civil}", tags=["Colombia"])
 def chart(civil:str):
     result = Civil(datasets).getCivil(civil,date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byCivil_byMonth/{civil}", tags=["Colombia"])
 def chart(civil:str):
     result = Civil(datasets).getCivil(civil,date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byCivil_byWeapon/{civil}", tags=["Colombia"])
@@ -210,11 +234,19 @@ def chart(arma:str):
 @router.get("/byEmployee_byDayName/{empleado}", tags=["Colombia"])
 def chart(empleado:str):
     result = Employee(datasets).getEmployee(empleado, date=True).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byEmployee_byMonth/{empleado}", tags=["Colombia"])
 def chart(empleado:str):
     result = Employee(datasets).getEmployee(empleado, date=True).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byEmployee_byWeapon/{empleado}", tags=["Colombia"])
@@ -225,11 +257,19 @@ def chart(empleado:str):
 @router.get("/byAgeRange_byDayName/{inicio}/{final}", tags=["State"])
 def chart(inicio:int, final:int):
     result = Date(OldRange(datasets).getOld(inicio,final,salida=True)).byDayName()
+    test_sorting = Sort()
+    quantity, state = result
+    state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist() 
     return result
 
 @router.get("/byAgeRange_byMonth/{inicio}/{final}", tags=["State"])
 def chart(inicio:int, final:int):
     result = Date(OldRange(datasets).getOld(inicio,final,salida=True)).byMonth()
+    test_sorting = Sort()
+    state, quantity = result
+    quantity, state= test_sorting.sortValuesAndAdjustNames(quantity, state) 
+    result = state.tolist(), quantity.tolist()
     return result
 
 @router.get("/byAgeRange_byWeapon/{inicio}/{final}", tags=["State"])
