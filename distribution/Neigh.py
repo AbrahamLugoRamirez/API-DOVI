@@ -144,7 +144,6 @@ def chart(departamento:str,  municipio:str, barrio:str, sexo:str):
     result= Old(State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(sexo)).getOlds()
     return result
 
-
 @router.get("/byScholarship_byDayName/{departamento}/{municipio}/{barrio}/{escolaridad}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, escolaridad:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getScholarship(escolaridad,date=True).byDayName()
@@ -261,6 +260,22 @@ def chart(departamento:str, municipio:str, barrio:str, inicio:int, final:int):
 @router.get("/byAgeRange_byEmployee/{departamento}/{municipio}/{barrio}/{inicio}/{final}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, inicio:int, final:int):
     result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).neighborhood(barrio).getEmployees()
+    return result
+
+@router.get("/byScholarship_bySex/{departamento}/{municipio}/{barrio}/{escolaridad}", tags=["Neighborhood"])
+def chart(departamento:str, municipio:str, barrio:str, escolaridad:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getScholarship(escolaridad, sex=True).getSexs()
+    return result
+
+
+@router.get("/byCivil_bySex/{departamento}/{municipio}/{barrio}/{civil}", tags=["Neighborhood"])
+def chart(departamento:str, municipio:str, barrio:str, civil:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getCivil(civil, sex=True).getSexs()
+    return result
+
+@router.get("/byEmployee_bySex/{departamento}/{municipio}/{barrio}/{empleado}", tags=["Neighborhood"])
+def chart(departamento:str, municipio:str, barrio:str, empleado:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getEmployee(empleado, sex=True).getSexs()
     return result
 
 

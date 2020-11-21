@@ -54,7 +54,7 @@ column_names = ["FECHA", "DEPARTAMENTO", "MUNICIPIO", "DIA", "HORA", "BARRIO", "
 # Execute the "SELECT *" query
 # Connect to the database
 frames = []
-frames.append(postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar_general", column_names))
+frames.append(postgresql_to_dataframe(conn, "select * from violencia_intrafamiliar_2019", column_names))
 datasets = renameDataFrameColumnsName(frames)
 datasets = joinDataFrames(datasets)
 ## Delete all rows which has some NAN value
@@ -84,7 +84,6 @@ class OldRange(Date):
     else:
       return Date(result)
 
-
 @router.get("/byDayName", tags=["Colombia"])
 def chart():
     result = Date(datasets).byDayName()
@@ -93,7 +92,6 @@ def chart():
     state, quantity= test_sorting.sortValuesAndAdjustNames(quantity, state) 
     result = state.tolist(), quantity.tolist()    
     return result
-
 
 @router.get("/byMonth", tags=["Colombia"])
 def chart():
@@ -152,8 +150,6 @@ def chart():
     sum3 = result18 + result45 + result99
     result = [["0-18", "19-45", "45 Y MAS"], [result18, result45, result99]]
     return result
-
-
 
 @router.get("/bySex_byWeapon/{sexo}", tags=["Colombia"])
 def chart(sexo:str):
@@ -254,7 +250,7 @@ def chart(empleado:str):
     result = Employee(datasets).getEmployee(empleado, weapon=True).getWeapons()
     return result
 
-@router.get("/byAgeRange_byDayName/{inicio}/{final}", tags=["State"])
+@router.get("/byAgeRange_byDayName/{inicio}/{final}", tags=["Colombia"])
 def chart(inicio:int, final:int):
     result = Date(OldRange(datasets).getOld(inicio,final,salida=True)).byDayName()
     test_sorting = Sort()
@@ -263,7 +259,7 @@ def chart(inicio:int, final:int):
     result = state.tolist(), quantity.tolist() 
     return result
 
-@router.get("/byAgeRange_byMonth/{inicio}/{final}", tags=["State"])
+@router.get("/byAgeRange_byMonth/{inicio}/{final}", tags=["Colombia"])
 def chart(inicio:int, final:int):
     result = Date(OldRange(datasets).getOld(inicio,final,salida=True)).byMonth()
     test_sorting = Sort()
@@ -272,34 +268,43 @@ def chart(inicio:int, final:int):
     result = state.tolist(), quantity.tolist()
     return result
 
-@router.get("/byAgeRange_byWeapon/{inicio}/{final}", tags=["State"])
+@router.get("/byAgeRange_byWeapon/{inicio}/{final}", tags=["Colombia"])
 def chart(inicio:int, final:int):
     result = Weapon(OldRange(datasets).getOld(inicio,final,salida=True)).getWeapons()
     return result
 
-@router.get("/byAgeRange_bySex/{inicio}/{final}", tags=["State"])
+@router.get("/byAgeRange_bySex/{inicio}/{final}", tags=["Colombia"])
 def chart(inicio:int, final:int):
     result = Sex(OldRange(datasets).getOld(inicio,final,salida=True)).getSexs()
     return result
 
 
-@router.get("/byAgeRange_byScholarty/{inicio}/{final}", tags=["State"])
+@router.get("/byAgeRange_byScholarty/{inicio}/{final}", tags=["Colombia"])
 def chart(inicio:int, final:int):
     result = Scholarship(OldRange(datasets).getOld(inicio,final,salida=True)).getScholarships()
     return result
 
-@router.get("/byAgeRange_byCivil/{inicio}/{final}", tags=["State"])
+@router.get("/byAgeRange_byCivil/{inicio}/{final}", tags=["Colombia"])
 def chart(inicio:int, final:int):
     result = Civil(OldRange(datasets).getOld(inicio,final,salida=True)).getCivils()
     return result
 
-@router.get("/byAgeRange_byEmployee/{inicio}/{final}", tags=["State"])
+@router.get("/byAgeRange_byEmployee/{inicio}/{final}", tags=["Colombia"])
 def chart(inicio:int, final:int):
     result = Employee(OldRange(datasets).getOld(inicio,final,salida=True)).getEmployees()
     return result
 
+@router.get("/byScholarship_bySex/{escolaridad}", tags=["Colombia"])
+def chart(escolaridad:str):
+    result = Scholarship(datasets).getScholarship(escolaridad,sex=True).getSexs()
+    return result
 
+@router.get("/byCivil_bySex/{civil}", tags=["Colombia"])
+def chart(civil:str):
+    result = Civil(datasets).getCivil(civil, sex=True).getSexs()
+    return result
 
-
-
-
+@router.get("/byEmployee_bySex/{empleado}", tags=["Colombia"])
+def chart(empleado:str):
+    result = Employee(datasets).getEmployee(empleado, sex=True).getSexs()
+    return result
