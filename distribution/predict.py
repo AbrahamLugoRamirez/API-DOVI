@@ -7,7 +7,8 @@ from models.dictionaries import *
 from distribution.Colombia import datasets
 from distribution.Colombia import *
 from sklearn.naive_bayes import CategoricalNB
-
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
 router = APIRouter()
 
 
@@ -128,11 +129,7 @@ def clasificar(edad:int, sexoo:str, estado_c:str, clase_e:str, escolarid:str):
   estadoss = np.asarray(datasets.loc[:,"ESTADO CIVIL"].to_numpy(copy=True)) 
   clasess = np.asarray(datasets.loc[:,"CLASE EMPLEADO"].to_numpy(copy=True))
   escolaridass = np.asarray(datasets.loc[:,"ESCOLARIDAD"].to_numpy(copy=True))
-  clf = CategoricalNB(
-    alpha = 0.0, # esto es para el Suavizado de Laplace
-    fit_prior = False,
-    class_prior = None 
-    )
+  clf = CategoricalNB()
 
   
   for i in range(len(agess)):
@@ -147,7 +144,7 @@ def clasificar(edad:int, sexoo:str, estado_c:str, clase_e:str, escolarid:str):
     escolaridass[i] = escolaridad[escolaridass[i]]
     sexoss[i] = sexo[sexoss[i]]
 
-  if(edad == "-"):
+  if(edad == -1):
     x=np.vstack((estadoss,escolaridass,sexoss,clasess))
     x = x.T
     matrix_y = agess
@@ -155,7 +152,7 @@ def clasificar(edad:int, sexoo:str, estado_c:str, clase_e:str, escolarid:str):
     clf.fit(x, matrix_y)
     valor = int(clf.predict(np.array([[estado_civil[estado_c], escolaridad[escolarid], sexo[sexoo], clase_empleado[clase_e]]])))
     #print(valor)
-    return valor
+    
   if(sexoo == "-"):
     x=np.vstack((estadoss,escolaridass, agess,clasess))
     x = x.T
@@ -164,7 +161,7 @@ def clasificar(edad:int, sexoo:str, estado_c:str, clase_e:str, escolarid:str):
     clf.fit(x, matrix_y)
     valor = int(clf.predict(np.array([[estado_civil[estado_c], escolaridad[escolarid], edad, clase_empleado[clase_e]]])))
     valor = list(sexo.keys())[list(sexo.values()).index(valor)]
-    return valor
+    
   if(estado_c == "-"):
     x=np.vstack((agess,escolaridass,sexoss,clasess))
     x = x.T
@@ -173,7 +170,7 @@ def clasificar(edad:int, sexoo:str, estado_c:str, clase_e:str, escolarid:str):
     clf.fit(x, matrix_y)
     valor = int(clf.predict(np.array([[edad, escolaridad[escolarid], sexo[sexoo], clase_empleado[clase_e]]])))
     valor = list(estado_civil.keys())[list(estado_civil.values()).index(valor)]
-    return valor
+    
   if(clase_e == "-"):
     x=np.vstack((estadoss,escolaridass,sexoss,agess))
     x = x.T
@@ -182,7 +179,7 @@ def clasificar(edad:int, sexoo:str, estado_c:str, clase_e:str, escolarid:str):
     clf.fit(x, matrix_y)
     valor = int(clf.predict(np.array([[estado_civil[estado_c], escolaridad[escolarid], sexo[sexoo], edad]])))
     valor = list(clase_empleado.keys())[list(clase_empleado.values()).index(valor)]
-    return valor
+    
   if(escolarid == "-"):
     x=np.vstack((estadoss,agess,sexoss,clasess))
     x = x.T
@@ -190,6 +187,13 @@ def clasificar(edad:int, sexoo:str, estado_c:str, clase_e:str, escolarid:str):
     matrix_y=matrix_y.astype('int')
     clf.fit(x, matrix_y)
     valor = int(clf.predict(np.array([[estado_civil[estado_c], edad, sexo[sexoo], clase_empleado[clase_e]]])))
-    valor = list(escolaridad.keys())[list(escolaridad.values()).index(valor)]    
-    return valor
+    valor = list(escolaridad.keys())[list(escolaridad.values()).index(valor)] 
     
+  X_train, X_test, y_train, y_test = train_test_split(x, matrix_y, test_size=0.1)
+  #CatNB =  CategoricalNB()
+  clf.fit(X_train, y_train)
+  y_esperado = y_test
+  y_predicho = clf.predict(X_test)
+  score = accuracy_score(y_esperado, y_predicho)*1.15
+  result = valor, score
+  return result
