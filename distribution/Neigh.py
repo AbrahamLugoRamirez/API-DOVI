@@ -278,5 +278,19 @@ def chart(departamento:str, municipio:str, barrio:str, empleado:str):
     result = State(datasets, departamento).town(municipio).neighborhood(barrio).getEmployee(empleado, sex=True).getSexs()
     return result
 
+@router.get("/byEmployee/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
+def chart(departamento:str, municipio:str, barrio:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getEmployees()
+    return result
+
+@router.get("/byScholarship/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
+def chart(departamento:str, municipio:str, barrio:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getScholarships()
+    return result
+@router.get("/byCivil/{departamento}/{municipio}/{barrio}", tags=["Neighborhood"])
+def chart(departamento:str, municipio:str, barrio:str):
+    result = State(datasets, departamento).town(municipio).neighborhood(barrio).getCivils()
+    return result
+
 
 

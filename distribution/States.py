@@ -287,3 +287,17 @@ def chart(departamento:str, civil:str):
 def chart(departamento:str, empleado:str):
     result = State(datasets, departamento).getEmployee(empleado, sex=True).getSexs()
     return result
+
+@router.get("/byEmployee/{departamento}", tags=["State"])
+def chart(departamento:str):
+    result = State(datasets, departamento).getEmployees()
+    return result
+
+@router.get("/byScholarship/{departamento}", tags=["State"])
+def chart(departamento:str):
+    result = State(datasets, departamento).getScholarships()
+    return result
+@router.get("/byCivil/{departamento}", tags=["State"])
+def chart(departamento:str):
+    result = State(datasets, departamento).getCivils()
+    return result

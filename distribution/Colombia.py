@@ -308,3 +308,19 @@ def chart(civil:str):
 def chart(empleado:str):
     result = Employee(datasets).getEmployee(empleado, sex=True).getSexs()
     return result
+
+@router.get("/byEmployee", tags=["Colombia"])
+def chart():
+    result = Employee(datasets).getEmployees()
+    return result
+
+@router.get("/byScholarship", tags=["Colombia"])
+def chart():
+    result = Scholarship(datasets).getScholarships()
+    return result
+@router.get("/byCivil", tags=["Colombia"])
+def chart():
+    result = Civil(datasets).getCivils()
+    return result
+
+
