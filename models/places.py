@@ -89,7 +89,6 @@ class Sex(Old, Date):
 
   def getSex(self, sex, values=False, old=False, date=False):
     result = self.dataset.loc[self.dataset['SEXO'] == sex]
-    print("que está pasando: ", result)
     if values:
       return len(result)
     else:
@@ -98,7 +97,6 @@ class Sex(Old, Date):
       else: return result
 
   def getSexTotal(self):
-    print("Hi")
     resultF = self.dataset.loc[self.dataset['SEXO'] == "FEMENINO"]
     resultM = self.dataset.loc[self.dataset['SEXO'] == "MASCULINO"]
     result = resultF + resultM
