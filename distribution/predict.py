@@ -15,120 +15,153 @@ router = APIRouter()
 @router.get("/numeroCasos/{departamento}/{municipio}/{barrio}/{dia_semana}/{age}/{sexo}/{tipo_Sitio}", tags=["Predict"])
 def habitants_cases(departamento:str, municipio:str, barrio:str,  dia_semana:str, age:int, sexo:str, tipo_Sitio:str):
   result=0
-  if (departamento!="-"):
-    if (municipio!="-"):
-      if (barrio!="-"):
+  if (departamento!=""):
+    if (municipio!=""):
+      if (barrio!=""):
         if (age!=-1):
-          if (sexo!="-"):
-            if (tipo_Sitio!="-"):
-              if (dia_semana!="-"):
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(old=age).getDay(dia_semana), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+          if (sexo!=""):
+            if (tipo_Sitio!=""):
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(old=age).getDay(dia_semana),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
               else:
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
             else:
-              result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(date=True,old=True, sex=sexo).getOld(old=age).getDay(dia_semana),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+              else:
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
           else:
-            result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(values=True,old=age), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+            if (tipo_Sitio!=""):
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(old=True, place=tipo_Sitio).getOld(old=age).getDay(dia_semana),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+              else:
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(old=True, place=tipo_Sitio).getOld(values=True,old=age),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+            else:
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(old=age).getDay(dia_semana),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+              else:
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getOld(values=True,old=age),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
         else: 
-          if (sexo!="-"):
-            if (tipo_Sitio!="-"):
-              if (dia_semana!="-"):
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True, sex=sexo).getDay(dia_semana), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+          if (sexo!=""):
+            if (tipo_Sitio!=""):
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True, sex=sexo).getDay(dia_semana),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
               else:
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(sex=True, place=tipo_Sitio).getSex(values=True, sex=sexo), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(sex=True, place=tipo_Sitio).getSex(values=True, sex=sexo),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
             else:
-              if(dia_semana!="-"):
-                print("chonn")
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(date=True, sex=sexo).getDay(dia_semana), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(date=True, sex=sexo).getDay(dia_semana),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
               else:
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(values=True, sex=sexo), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getSex(values=True, sex=sexo),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
           else:
-            if (tipo_Sitio!="-"):
-              if (dia_semana!="-"):
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(date=True, place=tipo_Sitio).getDay(dia_semana), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+            if (tipo_Sitio!=""):
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(date=True, place=tipo_Sitio).getDay(dia_semana),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
               else:
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(values=True, place=tipo_Sitio), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getPlace(values=True, place=tipo_Sitio),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
             else:
-              if (dia_semana!="-"):
-                print("chon")
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getDay(dia_semana), State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getDay(dia_semana),State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0]
               else:
-                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0], State(datasets, departamento).town(municipio).getTowns()[1][0]
-                #result = algo[1][0]
-
+                result = State(datasets, departamento).town(municipio).neighborhood(barrio).getNeighborhoods()[1][0],State(datasets, departamento).town(municipio).getTowns()[1][0]
       else: 
+        #TOWN
+        print("barrios")
         if (age!=-1):
-          if (sexo!="-"):
-            if (tipo_Sitio!="-"):
-              if (dia_semana!="-"):
-                result = State(datasets, departamento).town(municipio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(old=age).getDay(dia_semana), State(datasets, departamento).town(municipio).getTowns()[1][0]
+          if (sexo!=""):
+            if (tipo_Sitio!=""):
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(old=age).getDay(dia_semana),State(datasets, departamento).town(municipio).getTowns()[1][0]
               else:
-                result = State(datasets, departamento).town(municipio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age), State(datasets, departamento).town(municipio).getTowns()[1][0]
+                result = State(datasets, departamento).town(municipio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age),State(datasets, departamento).town(municipio).getTowns()[1][0]
             else:
-              result = State(datasets, departamento).town(municipio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age), State(datasets, departamento).town(municipio).getTowns()[1][0]
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).getSex(date=True,old=True, sex=sexo).getOld(old=age).getDay(dia_semana),State(datasets, departamento).town(municipio).getTowns()[1][0]
+              else:
+                result = State(datasets, departamento).town(municipio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age),State(datasets, departamento).town(municipio).getTowns()[1][0]
           else:
-            result = State(datasets, departamento).town(municipio).getOld(values=True,old=age), State(datasets, departamento).town(municipio).getTowns()[1][0]
+            if (tipo_Sitio!=""):
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).getPlace(old=True, place=tipo_Sitio).getOld(old=age).getDay(dia_semana),State(datasets, departamento).town(municipio).getTowns()[1][0]
+              else:
+                result = State(datasets, departamento).town(municipio).getPlace(old=True, place=tipo_Sitio).getOld(values=True,old=age),State(datasets, departamento).town(municipio).getTowns()[1][0]
+            else:
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).getOld(old=age).getDay(dia_semana),State(datasets, departamento).town(municipio).getTowns()[1][0]
+              else:
+                result = State(datasets, departamento).town(municipio).getOld(values=True,old=age),State(datasets, departamento).town(municipio).getTowns()[1][0]
         else: 
-          if (sexo!="-"):
-            if (tipo_Sitio!="-"):
-              if (dia_semana!="-"):
-                result = State(datasets, departamento).town(municipio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True, sex=sexo).getDay(dia_semana), State(datasets, departamento).town(municipio).getTowns()[1][0]
+          if (sexo!=""):
+            if (tipo_Sitio!=""):
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).getPlace(sex=True, place=tipo_Sitio).getSex(date=True, sex=sexo).getDay(dia_semana),State(datasets, departamento).town(municipio).getTowns()[1][0]
               else:
-                result = State(datasets, departamento).town(municipio).getPlace(sex=True, place=tipo_Sitio).getSex(values=True, sex=sexo), State(datasets, departamento).town(municipio).getTowns()[1][0]
+                result = State(datasets, departamento).town(municipio).getPlace(sex=True, place=tipo_Sitio).getSex(values=True, sex=sexo),State(datasets, departamento).town(municipio).getTowns()[1][0]
             else:
-              if(dia_semana!="-"):
-                 result = State(datasets, departamento).town(municipio).getSex(date=True, sex=sexo).getDay(dia_semana), State(datasets, departamento).town(municipio).getTowns()[1][0]
-              else:                 
-                result = State(datasets, departamento).town(municipio).getSex(values=True, sex=sexo), State(datasets, departamento).town(municipio).getTowns()[1][0]
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).getSex(date=True, sex=sexo).getDay(dia_semana),State(datasets, departamento).town(municipio).getTowns()[1][0]
+              else:
+                result = State(datasets, departamento).town(municipio).getSex(values=True, sex=sexo),State(datasets, departamento).town(municipio).getTowns()[1][0]
           else:
-            if (tipo_Sitio!="-"):
-              if (dia_semana!="-"):
-                result = State(datasets, departamento).town(municipio).getPlace(date=True, place=tipo_Sitio).getDay(dia_semana), State(datasets, departamento).town(municipio).getTowns()[1][0]
+            if (tipo_Sitio!=""):
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).getPlace(date=True, place=tipo_Sitio).getDay(dia_semana),State(datasets, departamento).town(municipio).getTowns()[1][0]
               else:
-                result = State(datasets, departamento).town(municipio).getPlace(values=True, place=tipo_Sitio), State(datasets, departamento).town(municipio).getTowns()[1][0]
+                result = State(datasets, departamento).town(municipio).getPlace(values=True, place=tipo_Sitio),State(datasets, departamento).town(municipio).getTowns()[1][0]
             else:
-              if (dia_semana!="-"):
-                result = State(datasets, departamento).town(municipio).getDay(dia_semana), State(datasets, departamento).town(municipio).getTowns()[1][0]
+              if (dia_semana!=""):
+                result = State(datasets, departamento).town(municipio).getDay(dia_semana),State(datasets, departamento).town(municipio).getTowns()[1][0]
               else:
-                result = State(datasets, departamento).town(municipio).getTowns()[1][0], State(datasets, departamento).getStatess(departamento)
-                #result = algo[1][0]
-
+                result = State(datasets, departamento).town(municipio).getTowns()[1][0],State(datasets, departamento).getStates()[1][0]
     else:
+      #MUNICIPIOS
+      print("municipios")
       if (age!=-1):
-        if (sexo!="-"):
-          if (tipo_Sitio!="-"):
-            if (dia_semana!="-"):
-              result = State(datasets, departamento).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(old=age).getDay(dia_semana), State(datasets, departamento).getStatess(departamento)
+        if (sexo!=""):
+          if (tipo_Sitio!=""):
+            if (dia_semana!=""):
+              result = State(datasets, departamento).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(old=age).getDay(dia_semana),State(datasets, departamento).getStates()[1][0]
             else:
-              result = State(datasets, departamento).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age), State(datasets, departamento).getStatess(departamento)
+              result = State(datasets, departamento).getPlace(sex=True, place=tipo_Sitio).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age),State(datasets, departamento).getStates()[1][0]
           else:
-            result = State(datasets, departamento).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age), State(datasets, departamento).getStatess(departamento)
+            if (dia_semana!=""):
+              result = State(datasets, departamento).getSex(date=True,old=True, sex=sexo).getOld(old=age).getDay(dia_semana),State(datasets, departamento).getStates()[1][0]
+            else:
+              result = State(datasets, departamento).getSex(date=True,old=True, sex=sexo).getOld(values=True,old=age),State(datasets, departamento).getStates()[1][0]
         else:
-          result = State(datasets, departamento).getOld(values=True,old=age), State(datasets, departamento).getStatess(departamento)
-      else: 
-        if (sexo!="-"):
-          if (tipo_Sitio!="-"):
-            if (dia_semana!="-"):
-              result = State(datasets, departamento).getPlace(sex=True, place=tipo_Sitio).getSex(date=True, sex=sexo).getDay(dia_semana), State(datasets, departamento).getStatess(departamento)
+          if (tipo_Sitio!=""):
+            if (dia_semana!=""):
+              result = State(datasets, departamento).getPlace(old=True, place=tipo_Sitio).getOld(old=age).getDay(dia_semana),State(datasets, departamento).getStates()[1][0]
             else:
-              result = State(datasets, departamento).getPlace(sex=True, place=tipo_Sitio).getSex(values=True, sex=sexo), State(datasets, departamento).getStatess(departamento)
+              result = State(datasets, departamento).getPlace(old=True, place=tipo_Sitio).getOld(values=True,old=age),State(datasets, departamento).getStates()[1][0]
           else:
-            if(dia_semana!="-"):
-
-              result = State(datasets, departamento).getSex(date=True, sex=sexo).getDay(dia_semana), State(datasets, departamento).getStatess(departamento)
+            if (dia_semana!=""):
+              result = State(datasets, departamento).getOld(old=age).getDay(dia_semana),State(datasets, departamento).getStates()[1][0]
             else:
-              result = State(datasets, departamento).getSex(values=True, sex=sexo), State(datasets, departamento).getStatess(departamento)
+              result = State(datasets, departamento).getOld(values=True,old=age),State(datasets, departamento).getStates()[1][0]
+      else:
+        if (sexo!=""):
+          if (tipo_Sitio!=""):
+            if (dia_semana!=""):
+              result = State(datasets, departamento).getPlace(sex=True, place=tipo_Sitio).getSex(date=True, sex=sexo).getDay(dia_semana),State(datasets, departamento).getStates()[1][0]
+            else:
+              result = State(datasets, departamento).getPlace(sex=True, place=tipo_Sitio).getSex(values=True, sex=sexo),State(datasets, departamento).getStates()[1][0]
+          else:
+            if (dia_semana!=""):
+              result = State(datasets, departamento).getSex(date=True, sex=sexo).getDay(dia_semana),State(datasets, departamento).getStates()[1][0]
+            else:
+              result = State(datasets, departamento).getSex(values=True, sex=sexo),State(datasets, departamento).getStates()[1][0]
         else:
-          if (tipo_Sitio!="-"):
-            if (dia_semana!="-"):
-              result = State(datasets, departamento).getPlace(date=True, place=tipo_Sitio).getDay(dia_semana), State(datasets, departamento).getStatess(departamento)
+          if (tipo_Sitio!=""):
+            if (dia_semana!=""):
+              result = State(datasets, departamento).getPlace(date=True, place=tipo_Sitio).getDay(dia_semana),State(datasets, departamento).getStates()[1][0]
             else:
-              result = State(datasets, departamento).getPlace(values=True, place=tipo_Sitio), State(datasets, departamento).getStatess(departamento)
+              result = State(datasets, departamento).getPlace(values=True, place=tipo_Sitio),State(datasets, departamento).getStates()[1][0]
           else:
-            if (dia_semana!="-"):
-              result = State(datasets, departamento).getDay(dia_semana), State(datasets, departamento).getStatess(departamento)
+            if (dia_semana!=""):
+              result = State(datasets, departamento).getDay(dia_semana),State(datasets, departamento).getStates()[1][0]
             else:
-              result = State(datasets, departamento).getStatess(departamento), len(datasets)
+              result = State(datasets, departamento).getStates()[1][0],len(datasets)
   #print("Cantidad de casos que cumplen los requisitos indicados: ",result)
   percentage = (result[0]/result[1])*100
   return percentage
