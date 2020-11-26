@@ -279,7 +279,7 @@ def chart(inicio:int, final:int):
     return result
 
 
-@router.get("/byAgeRange_byScholarty/{inicio}/{final}", tags=["Colombia"])
+@router.get("/byAgeRange_byScholarship/{inicio}/{final}", tags=["Colombia"])
 def chart(inicio:int, final:int):
     result = Scholarship(OldRange(datasets).getOld(inicio,final,salida=True)).getScholarships()
     return result

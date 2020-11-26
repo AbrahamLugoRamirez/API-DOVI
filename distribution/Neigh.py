@@ -247,7 +247,7 @@ def chart(departamento:str, municipio:str, barrio:str, inicio:int, final:int):
     return result
 
 
-@router.get("/byAgeRange_byScholarty/{departamento}/{municipio}/{barrio}/{inicio}/{final}", tags=["Neighborhood"])
+@router.get("/byAgeRange_byScholarship/{departamento}/{municipio}/{barrio}/{inicio}/{final}", tags=["Neighborhood"])
 def chart(departamento:str, municipio:str, barrio:str, inicio:int, final:int):
     result = State(OldRange(datasets).getOld(inicio,final,salida=True),departamento).town(municipio).neighborhood(barrio).getScholarships()
     return result
